@@ -1,0 +1,25 @@
+# depslib dependency file v1.0
+1377465867 source:/home/sasan/dev/SatOpt/tableProcess/main.cpp
+	<iostream>
+	<vector>
+	<string>
+	<iostream>
+	<sstream>
+	<fstream>
+	<unordered_map>
+	<assert.h>
+	"lossCalculator.h"
+
+1377464139 /home/sasan/dev/SatOpt/tableProcess/include/lossCalculator.h
+	<iostream>
+	<vector>
+	<string>
+	<iostream>
+	<sstream>
+	<fstream>
+	<unordered_map>
+	<assert.h>
+
+1377466868 source:/home/sasan/dev/SatOpt/tableProcess/src/lossCalculator.cpp
+	"lossCalculator.h"
+

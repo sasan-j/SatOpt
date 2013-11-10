@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="paramRecalc" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/tableProcess" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-std=c++11" />
+					<Add option="-g" />
+					<Add directory="include" />
+					<Add directory="../ParadisEO-2.0/moeo/src" />
+					<Add directory="../ParadisEO-2.0/eo/src" />
+					<Add directory="../ParadisEO-2.0/mo/src" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/tableProcess" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add directory="include" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+			<Add directory="../ParadisEO-2.0/eo" />
+			<Add directory="../ParadisEO-2.0/mo" />
+			<Add directory="../ParadisEO-2.0/moeo" />
+		</Compiler>
+		<Linker>
+			<Add library="../ParadisEO-2.0/build/eo/lib/libcma.a" />
+			<Add library="../ParadisEO-2.0/build/eo/lib/libeo.a" />
+			<Add library="../ParadisEO-2.0/build/eo/lib/libeoutils.a" />
+			<Add library="../ParadisEO-2.0/build/eo/lib/libes.a" />
+			<Add library="../ParadisEO-2.0/build/eo/lib/libga.a" />
+			<Add library="../ParadisEO-2.0/build/moeo/lib/libmoeo.a" />
+		</Linker>
+		<Unit filename="include/lossCalculator.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="satOpt.h" />
+		<Unit filename="src/RunResult.cpp" />
+		<Unit filename="src/RunResult.h" />
+		<Unit filename="src/lossCalculator.cpp" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

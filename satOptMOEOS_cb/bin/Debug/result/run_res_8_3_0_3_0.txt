@@ -1,0 +1,5 @@
+START at Thu Oct 24 16:11:31 2013
+
+DONE after 5623 generations.
+Finished computation at Thu Oct 24 16:21:31 2013
+elapsed time: 600.075s

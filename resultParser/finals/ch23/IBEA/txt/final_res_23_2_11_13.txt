@@ -1,0 +1,286 @@
+OptimalFront
+unaryHyperVol 60
+1
+4 24  100 0000101000100101110001010000000010100000010110011110010010101000011010011100010100101010101011101010
+-------------------------
+runNumber 0
+genCount 5820
+elapsedTime 600.009
+unaryHyperVol 0
+binaryHyperVol 333
+additiveEps 333
+entropy 333
+archive 0
+0
+runNumber 1
+genCount 5670
+elapsedTime 599.951
+unaryHyperVol 0
+binaryHyperVol 333
+additiveEps 333
+entropy 333
+archive 1
+0
+runNumber 2
+genCount 5476
+elapsedTime 599.979
+unaryHyperVol 0
+binaryHyperVol 333
+additiveEps 333
+entropy 333
+archive 2
+0
+runNumber 3
+genCount 5429
+elapsedTime 600.01
+unaryHyperVol 40
+binaryHyperVol 44
+additiveEps 1
+entropy 0
+archive 3
+1
+5 26  100 0000101000100101110001010010101010100000010000001110010010101000011010011100010100101010101011101010
+runNumber 4
+genCount 5616
+elapsedTime 599.926
+unaryHyperVol 0
+binaryHyperVol 333
+additiveEps 333
+entropy 333
+archive 4
+0
+runNumber 5
+genCount 5540
+elapsedTime 599.982
+unaryHyperVol 0
+binaryHyperVol 333
+additiveEps 333
+entropy 333
+archive 5
+0
+runNumber 6
+genCount 5728
+elapsedTime 599.877
+unaryHyperVol 0
+binaryHyperVol 333
+additiveEps 333
+entropy 333
+archive 6
+0
+runNumber 7
+genCount 5323
+elapsedTime 599.907
+unaryHyperVol 14
+binaryHyperVol 44
+additiveEps 1
+entropy 0
+archive 7
+1
+7 29  100 0000010100100101000000000010100101010110010000110010010010101000011010011100010100101010101011101010
+runNumber 8
+genCount 5465
+elapsedTime 599.9
+unaryHyperVol 40
+binaryHyperVol 44
+additiveEps 1
+entropy 0
+archive 8
+1
+5 26  100 0000101000100101110001010010101010100000010000001110010010101000011010011100010100101010101011101010
+runNumber 9
+genCount 5467
+elapsedTime 599.972
+unaryHyperVol 0
+binaryHyperVol 333
+additiveEps 333
+entropy 333
+archive 9
+0
+runNumber 10
+genCount 5651
+elapsedTime 599.872
+unaryHyperVol 0
+binaryHyperVol 333
+additiveEps 333
+entropy 333
+archive 10
+0
+runNumber 11
+genCount 5514
+elapsedTime 600.089
+unaryHyperVol 0
+binaryHyperVol 333
+additiveEps 333
+entropy 333
+archive 11
+0
+runNumber 12
+genCount 5723
+elapsedTime 599.814
+unaryHyperVol 0
+binaryHyperVol 333
+additiveEps 333
+entropy 333
+archive 12
+0
+runNumber 13
+genCount 5349
+elapsedTime 599.812
+unaryHyperVol 32
+binaryHyperVol 44
+additiveEps 1
+entropy 0
+archive 13
+1
+5 28  100 0110101000100101111001110010100111010110010000011110010000010100011010010000010100100011101011101010
+runNumber 14
+genCount 5651
+elapsedTime 599.988
+unaryHyperVol 27
+binaryHyperVol 44
+additiveEps 1
+entropy 0
+archive 14
+1
+6 27  100 0000101000100100111001010010101110100000010000011110010010101010011010011100010111010110101011101010
+runNumber 15
+genCount 5319
+elapsedTime 599.91
+unaryHyperVol 40
+binaryHyperVol 44
+additiveEps 1
+entropy 0
+archive 15
+1
+5 26  100 0000101000101001110001010010101110100000010000011110010010101010011010011100000000101010101011101010
+runNumber 16
+genCount 5813
+elapsedTime 599.946
+unaryHyperVol 0
+binaryHyperVol 333
+additiveEps 333
+entropy 333
+archive 16
+0
+runNumber 17
+genCount 5590
+elapsedTime 599.918
+unaryHyperVol 27
+binaryHyperVol 44
+additiveEps 1
+entropy 0
+archive 17
+1
+6 27  100 0000101000100100111001010010101110100000010000011110010010101001011010011100010101010110101011101010
+runNumber 18
+genCount 5499
+elapsedTime 599.918
+unaryHyperVol 0
+binaryHyperVol 333
+additiveEps 333
+entropy 333
+archive 18
+0
+runNumber 19
+genCount 5433
+elapsedTime 600.052
+unaryHyperVol 24
+binaryHyperVol 44
+additiveEps 1
+entropy 0
+archive 19
+1
+6 28  100 0110000001010001010000100010101110100000000110011110010000101000011010001100010100100000101011101010
+runNumber 20
+genCount 5519
+elapsedTime 599.935
+unaryHyperVol 0
+binaryHyperVol 333
+additiveEps 333
+entropy 333
+archive 20
+0
+runNumber 21
+genCount 5686
+elapsedTime 599.905
+unaryHyperVol 27
+binaryHyperVol 44
+additiveEps 1
+entropy 0
+archive 21
+1
+6 27  100 0110101001010001111001010010101110100000110110011110010010101000011010101100010100100000101011101010
+runNumber 22
+genCount 5543
+elapsedTime 600.012
+unaryHyperVol 0
+binaryHyperVol 333
+additiveEps 333
+entropy 333
+archive 22
+0
+runNumber 23
+genCount 5380
+elapsedTime 599.97
+unaryHyperVol 0
+binaryHyperVol 333
+additiveEps 333
+entropy 333
+archive 23
+0
+runNumber 24
+genCount 5847
+elapsedTime 600.01
+unaryHyperVol 0
+binaryHyperVol 333
+additiveEps 333
+entropy 333
+archive 24
+0
+runNumber 25
+genCount 5264
+elapsedTime 599.868
+unaryHyperVol 30
+binaryHyperVol 44
+additiveEps 1
+entropy 0
+archive 25
+1
+6 26  100 0110101000010001111001110010101110100011110110011110010010101000011010101100010100100000101011101010
+runNumber 26
+genCount 5573
+elapsedTime 599.909
+unaryHyperVol 0
+binaryHyperVol 333
+additiveEps 333
+entropy 333
+archive 26
+0
+runNumber 27
+genCount 5767
+elapsedTime 600.003
+unaryHyperVol 0
+binaryHyperVol 333
+additiveEps 333
+entropy 333
+archive 27
+0
+runNumber 28
+genCount 5621
+elapsedTime 599.934
+unaryHyperVol 0
+binaryHyperVol 333
+additiveEps 333
+entropy 333
+archive 28
+0
+runNumber 29
+genCount 5531
+elapsedTime 599.981
+unaryHyperVol 55
+binaryHyperVol 333
+additiveEps 333
+entropy 0
+archive 29
+1
+4 25  100 0000101000010001110001010101010110100000010000001110010010101000011010011100010100101010101011101010

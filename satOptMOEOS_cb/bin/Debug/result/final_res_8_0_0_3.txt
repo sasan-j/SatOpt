@@ -1,0 +1,17 @@
+OptimalFront
+unaryHyperVol 111
+Optimal front is obtained by exact method
+-------------------------
+2
+2 9
+5 8
+runNumber 0
+genCount 3426
+elapsedTime 299.757
+unaryHyperVol 108
+binaryHyperVol 3
+additiveEps 1
+entropy 333
+archive 0
+1
+2 9  100 1001001000010001111011011110110011100011101000011111110001001011000101000100011011101000001101000001

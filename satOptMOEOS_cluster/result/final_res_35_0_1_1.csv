@@ -1,0 +1,7 @@
+runNumber,genCount,elapsedTime,unaryHyperVol,binaryHyperVol,additiveEps,entropy
+0,289,5.57873,0,333,333,333
+1,306,6.00362,0,333,333,333
+2,313,6.00477,0,333,333,333
+3,314,5.99075,0,333,333,333
+4,313,6.00983,0,333,333,333
+,,,0,,,

@@ -5,7 +5,7 @@
  * Created on March 28, 2013, 6:09 PM
  */
 
-#include "PrIns.h"
+#include "../inc/PrIns.h"
 
 using namespace std;
 

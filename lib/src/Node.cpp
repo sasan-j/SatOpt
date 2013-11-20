@@ -5,7 +5,7 @@
  * Created on March 28, 2013, 6:07 PM
  */
 
-#include "Node.h"
+#include "../inc/Node.h"
 
 using namespace std;
 

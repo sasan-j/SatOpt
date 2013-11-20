@@ -5,7 +5,7 @@
  * Created on August 9, 2013, 11:54 AM
  */
 
-#include "RunResult.h"
+#include "../inc/RunResult.h"
 
 RunResult::RunResult() {
     this->elapsedTime = 0;

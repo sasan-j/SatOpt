@@ -28,21 +28,21 @@
 #include<eoSecondsElapsedContinue.h>
 
 //my codes
-#include "Node.h"
-#include "Port.h"
-#include "PrIns.h"
-#include "Payload.h"
-#include "../inc/eoBitOp_.h"
-#include "../inc/moeoNSGAII_snj.h"
+#include "../../lib/inc/Node.h"
+#include "../../lib/inc/Port.h"
+#include "../../lib/inc/PrIns.h"
+#include "../../lib/inc/Payload.h"
+#include "../../lib/inc/eoBitOp_.h"
+#include "../../lib/inc/moeoNSGAII_snj.h"
 #include <time.h>       /* time */
 #include <ctime>
 #include <string>
 #include <chrono>
-//#include "CTimer.h"
-#include "SatOpt.h"
-#include "RunResult.h"
-#include "FileAccess.h"
-#include "Payload_100.h"
+//#include "../../lib/inc/CTimer.h"
+#include "../../lib/inc/SatOpt.h"
+#include "../../lib/inc/RunResult.h"
+#include "../../lib/inc/FileAccess.h"
+#include "../../lib/inc/Payload_100.h"
 
 //for getExact
 #include <fstream>

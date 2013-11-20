@@ -7,7 +7,7 @@
 
 
 
-#include "CTimer.h"	
+#include "../inc/CTimer.h"	
 
 CTimer::CTimer()
 {

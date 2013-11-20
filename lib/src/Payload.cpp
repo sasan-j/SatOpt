@@ -5,7 +5,7 @@
  * Created on June 15, 2013, 5:05 PM
  */
 
-#include "Payload.h"
+#include "../inc/Payload.h"
 
 Payload::Payload() {
 

@@ -34,19 +34,10 @@ CND_BUILDDIR=build
 
 # Object Directory
 OBJECTDIR=obj
+
+LIBSRCDIR = ../lib/src
+LIBINCDIR = ../lib/inc
 SRCDIR=src
-
-# Here is a Make Macro that uses the backslash to extend to multiple lines.
-# Object Files
-OBJS = \
-	${OBJECTDIR}/Payload.o \
-	${OBJECTDIR}/RunResult.o \
-	${OBJECTDIR}/FileAccess.o \
-	${OBJECTDIR}/Node.o \
-	${OBJECTDIR}/Port.o \
-	${OBJECTDIR}/PrIns.o \
-	${OBJECTDIR}/main.o
-
 
 
 PROGRAM = satOptMOEO
@@ -60,7 +51,7 @@ LIBS = -l $(LDLIBSOPTIONS)
 
 
 
-CXXSOURCES =  src/Payload.cpp src/Payload_100.cpp src/Node.cpp src/PrIns.cpp src/Port.cpp src/RunResult.cpp src/FileAccess.cpp main.cpp      # list of source files
+CXXSOURCES =  ${LIBSRCDIR}/Payload.cpp ${LIBSRCDIR}/Payload_100.cpp ${LIBSRCDIR}/Node.cpp ${LIBSRCDIR}/PrIns.cpp ${LIBSRCDIR}/Port.cpp ${LIBSRCDIR}/RunResult.cpp ${LIBSRCDIR}/FileAccess.cpp main.cpp      # list of source files
 CXXOBJECTS = ${OBJECTDIR}/Payload.o ${OBJECTDIR}/Payload_100.o ${OBJECTDIR}/Node.o ${OBJECTDIR}/PrIns.o ${OBJECTDIR}/Port.o ${OBJECTDIR}/RunResult.o ${OBJECTDIR}/FileAccess.o ${OBJECTDIR}/main.o  
 #$(CXXSOURCES:.cpp=.o)  # expands to list of object files
 CXXFLAGS = -DESRI_UNIX -m64 -O3 -std=c++11 $(INCLUDEDIRS) 
@@ -92,28 +83,28 @@ $(PROGRAM): $(CXXOBJECTS)
 # a list of commands for compilation.
 #
 
-${OBJECTDIR}/Payload_100.o: ${SRCDIR}/Payload_100.h ${SRCDIR}/Node.h ${SRCDIR}/Port.h ${SRCDIR}/PrIns.h
-	$(CXX) $(CXXFLAGS) $(LDLIBINC)  -c -o ${OBJECTDIR}/Payload_100.o ${SRCDIR}/Payload_100.cpp
+${OBJECTDIR}/Payload_100.o: ${LIBINCDIR}/Payload_100.h ${LIBINCDIR}/Node.h ${LIBINCDIR}/Port.h ${LIBINCDIR}/PrIns.h
+	$(CXX) $(CXXFLAGS) $(LDLIBINC)  -c -o ${OBJECTDIR}/Payload_100.o ${LIBSRCDIR}/Payload_100.cpp
 
-${OBJECTDIR}/Payload.o: ${SRCDIR}/Payload.h ${SRCDIR}/Node.h ${SRCDIR}/Port.h ${SRCDIR}/PrIns.h
-	$(CXX) $(CXXFLAGS) $(LDLIBINC)  -c -o ${OBJECTDIR}/Payload.o ${SRCDIR}/Payload.cpp
+${OBJECTDIR}/Payload.o: ${LIBINCDIR}/Payload.h ${LIBINCDIR}/Node.h ${LIBINCDIR}/Port.h ${LIBINCDIR}/PrIns.h
+	$(CXX) $(CXXFLAGS) $(LDLIBINC)  -c -o ${OBJECTDIR}/Payload.o ${LIBSRCDIR}/Payload.cpp
 
-${OBJECTDIR}/Node.o: ${SRCDIR}/Payload.h ${SRCDIR}/Node.h ${SRCDIR}/Port.h ${SRCDIR}/PrIns.h
-	$(CXX) $(CXXFLAGS) $(LDLIBINC)  -c -o ${OBJECTDIR}/Node.o ${SRCDIR}/Node.cpp
+${OBJECTDIR}/Node.o: ${LIBINCDIR}/Payload.h ${LIBINCDIR}/Node.h ${LIBINCDIR}/Port.h ${LIBINCDIR}/PrIns.h
+	$(CXX) $(CXXFLAGS) $(LDLIBINC)  -c -o ${OBJECTDIR}/Node.o ${LIBSRCDIR}/Node.cpp
 
-${OBJECTDIR}/PrIns.o: ${SRCDIR}/Payload.h ${SRCDIR}/Node.h ${SRCDIR}/Port.h ${SRCDIR}/PrIns.h
-	$(CXX) $(CXXFLAGS) $(LDLIBINC)  -c -o ${OBJECTDIR}/PrIns.o ${SRCDIR}/PrIns.cpp
+${OBJECTDIR}/PrIns.o: ${LIBINCDIR}/Payload.h ${LIBINCDIR}/Node.h ${LIBINCDIR}/Port.h ${LIBINCDIR}/PrIns.h
+	$(CXX) $(CXXFLAGS) $(LDLIBINC)  -c -o ${OBJECTDIR}/PrIns.o ${LIBSRCDIR}/PrIns.cpp
 	
-${OBJECTDIR}/Port.o: ${SRCDIR}/Payload.h ${SRCDIR}/Node.h ${SRCDIR}/Port.h ${SRCDIR}/PrIns.h
-	$(CXX) $(CXXFLAGS) $(LDLIBINC)  -c -o ${OBJECTDIR}/Port.o ${SRCDIR}/Port.cpp
+${OBJECTDIR}/Port.o: ${LIBINCDIR}/Payload.h ${LIBINCDIR}/Node.h ${LIBINCDIR}/Port.h ${LIBINCDIR}/PrIns.h
+	$(CXX) $(CXXFLAGS) $(LDLIBINC)  -c -o ${OBJECTDIR}/Port.o ${LIBSRCDIR}/Port.cpp
 	
-${OBJECTDIR}/RunResult.o: ${SRCDIR}/RunResult.h ${SRCDIR}/Node.h ${SRCDIR}/Port.h ${SRCDIR}/PrIns.h
-	$(CXX) $(CXXFLAGS) $(LDLIBINC)  -c -o ${OBJECTDIR}/RunResult.o ${SRCDIR}/RunResult.cpp	
+${OBJECTDIR}/RunResult.o: ${LIBINCDIR}/RunResult.h ${LIBINCDIR}/Node.h ${LIBINCDIR}/Port.h ${LIBINCDIR}/PrIns.h
+	$(CXX) $(CXXFLAGS) $(LDLIBINC)  -c -o ${OBJECTDIR}/RunResult.o ${LIBSRCDIR}/RunResult.cpp	
 
-${OBJECTDIR}/FileAccess.o: ${SRCDIR}/FileAccess.h ${SRCDIR}/Node.h ${SRCDIR}/Port.h ${SRCDIR}/PrIns.h
-	$(CXX) $(CXXFLAGS) $(LDLIBINC)  -c -o ${OBJECTDIR}/FileAccess.o ${SRCDIR}/FileAccess.cpp
+${OBJECTDIR}/FileAccess.o: ${LIBINCDIR}/FileAccess.h ${LIBINCDIR}/Node.h ${LIBINCDIR}/Port.h ${LIBINCDIR}/PrIns.h
+	$(CXX) $(CXXFLAGS) $(LDLIBINC)  -c -o ${OBJECTDIR}/FileAccess.o ${LIBSRCDIR}/FileAccess.cpp
 
-${OBJECTDIR}/main.o: ${SRCDIR}/main.cpp ${SRCDIR}/Payload.h ${SRCDIR}/Payload_100.h ${SRCDIR}/Node.h ${SRCDIR}/Port.h ${SRCDIR}/PrIns.h ${SRCDIR}/RunResult.h ${SRCDIR}/FileAccess.h
+${OBJECTDIR}/main.o: ${SRCDIR}/main.cpp ${LIBINCDIR}/Payload.h ${LIBINCDIR}/Payload_100.h ${LIBINCDIR}/Node.h ${LIBINCDIR}/Port.h ${LIBINCDIR}/PrIns.h ${LIBINCDIR}/RunResult.h ${LIBINCDIR}/FileAccess.h
 	$(CXX) $(CXXFLAGS) $(LDLIBINC)  -c -o ${OBJECTDIR}/main.o ${SRCDIR}/main.cpp
 	
 

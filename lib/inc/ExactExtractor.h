@@ -7,7 +7,7 @@
 #include <eo>
 #include <ga.h>
 #include <moeo>
-#include"../src/SatOpt.h"
+#include"SatOpt.h"
 
 // exact fron extractor
 class ExactExtractor

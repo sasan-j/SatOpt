@@ -51,8 +51,8 @@ LIBS = -l $(LDLIBSOPTIONS)
 
 
 
-CXXSOURCES =  ${LIBSRCDIR}/Payload.cpp ${LIBSRCDIR}/Payload_100.cpp ${LIBSRCDIR}/Node.cpp ${LIBSRCDIR}/PrIns.cpp ${LIBSRCDIR}/Port.cpp ${LIBSRCDIR}/RunResult.cpp ${LIBSRCDIR}/FileAccess.cpp main.cpp      # list of source files
-CXXOBJECTS = ${OBJECTDIR}/Payload.o ${OBJECTDIR}/Payload_100.o ${OBJECTDIR}/Node.o ${OBJECTDIR}/PrIns.o ${OBJECTDIR}/Port.o ${OBJECTDIR}/RunResult.o ${OBJECTDIR}/FileAccess.o ${OBJECTDIR}/main.o  
+CXXSOURCES =  ${LIBSRCDIR}/Payload.cpp ${LIBSRCDIR}/Payload_100.cpp ${LIBSRCDIR}/Node.cpp ${LIBSRCDIR}/PrIns.cpp ${LIBSRCDIR}/Port.cpp ${LIBSRCDIR}/RunResult.cpp ${LIBSRCDIR}/FileAccess.cpp ${LIBSRCDIR}/ExactExtractor.cpp main.cpp      # list of source files
+CXXOBJECTS = ${OBJECTDIR}/Payload.o ${OBJECTDIR}/Payload_100.o ${OBJECTDIR}/Node.o ${OBJECTDIR}/PrIns.o ${OBJECTDIR}/Port.o ${OBJECTDIR}/RunResult.o ${OBJECTDIR}/FileAccess.o ${OBJECTDIR}/ExactExtractor.o ${OBJECTDIR}/main.o  
 #$(CXXSOURCES:.cpp=.o)  # expands to list of object files
 CXXFLAGS = -DESRI_UNIX -m64 -O3 -std=c++11 $(INCLUDEDIRS) 
 CXX = g++
@@ -103,8 +103,11 @@ ${OBJECTDIR}/RunResult.o: ${LIBINCDIR}/RunResult.h ${LIBINCDIR}/Node.h ${LIBINCD
 
 ${OBJECTDIR}/FileAccess.o: ${LIBINCDIR}/FileAccess.h ${LIBINCDIR}/Node.h ${LIBINCDIR}/Port.h ${LIBINCDIR}/PrIns.h
 	$(CXX) $(CXXFLAGS) $(LDLIBINC)  -c -o ${OBJECTDIR}/FileAccess.o ${LIBSRCDIR}/FileAccess.cpp
+	
+${OBJECTDIR}/ExactExtractor.o: ${LIBINCDIR}/FileAccess.h ${LIBINCDIR}/Node.h ${LIBINCDIR}/SatOpt.h ${LIBINCDIR}/PrIns.h
+	$(CXX) $(CXXFLAGS) $(LDLIBINC)  -c -o ${OBJECTDIR}/ExactExtractor.o ${LIBSRCDIR}/ExactExtractor.cpp	
 
-${OBJECTDIR}/main.o: ${SRCDIR}/main.cpp ${LIBINCDIR}/Payload.h ${LIBINCDIR}/Payload_100.h ${LIBINCDIR}/Node.h ${LIBINCDIR}/Port.h ${LIBINCDIR}/PrIns.h ${LIBINCDIR}/RunResult.h ${LIBINCDIR}/FileAccess.h
+${OBJECTDIR}/main.o: ${SRCDIR}/main.cpp ${LIBINCDIR}/Payload.h ${LIBINCDIR}/Payload_100.h ${LIBINCDIR}/Node.h ${LIBINCDIR}/Port.h ${LIBINCDIR}/PrIns.h ${LIBINCDIR}/ExactExtractor.h ${LIBINCDIR}/RunResult.h ${LIBINCDIR}/FileAccess.h
 	$(CXX) $(CXXFLAGS) $(LDLIBINC)  -c -o ${OBJECTDIR}/main.o ${SRCDIR}/main.cpp
 	
 

@@ -43,6 +43,7 @@
 #include "../../lib/inc/RunResult.h"
 #include "../../lib/inc/FileAccess.h"
 #include "../../lib/inc/Payload_100.h"
+#include "../../lib/inc/MyException.h"
 
 //for getExact
 #include <fstream>
@@ -66,23 +67,9 @@ vector<string> chan_instance; //says which channel should connect to amp
 string resultDir = "result/";
 
 
+void calculateBounds(vector< vector< vector<SatOptObjectiveVector> > >);
+std::vector < std::vector<double> > frontNormalizerRef(const std::vector < SatOptObjectiveVector > & _set, std::vector < eoRealInterval > _bounds,SatOptObjectiveVector ref_point);
 
-
-class MyException:public exception
-{
-public:
-    MyException(const string m)
-    {
-        msg=m;
-    }
-    //~MyException(void);
-    const char* what()
-    {
-        return msg.c_str();
-    }
-private:
-    string msg;
-};
 
 // evaluation of objective functions
 
@@ -1020,3 +1007,110 @@ int main(int argc, char **argv)
 
     return 0;
 }
+
+/*
+
+    void calculateBounds(vector< vector< vector<SatOptObjectiveVector> > > resultsObjVectorsVect)
+    {
+
+        ////////////////////////////////////////////
+        ////////////////////////////////////////////
+        //calculate objective extremes
+        double maxLPL=0;
+        double minLPL=100;
+        double maxSwChanges=0;
+        double minSwChanges=100;
+
+        for(int i=0; i<4; i++)
+        {
+            //cout << i << endl;
+
+            vector< vector<SatOptObjectiveVector> >resultsObjVectors;
+            resultsObjVectors = resultsObjVectorsVect[i];
+            for(unsigned int j=0; j<resultsObjVectors.size(); j++)
+            {
+                vector<SatOptObjectiveVector> resultObjVector=resultsObjVectors[j];
+
+                for(unsigned int k=0; k<resultObjVector.size(); k++)
+                {
+                    //SatOptObjectiveVector resultObjVector=resultsObjVectors[j];
+                    //cout << resultObjVector[k][0] << " " << resultObjVector[k][1] << endl;
+                    //Maximums
+
+                    if(resultObjVector[k][0]>=maxLPL)
+                        maxLPL=resultObjVector[k][0];
+                    if(resultObjVector[k][1]>=maxSwChanges)
+                        maxSwChanges=resultObjVector[k][1];
+
+                    //Minimums
+                    if(resultObjVector[k][0]<=minLPL)
+                        minLPL=resultObjVector[k][0];
+                    if(resultObjVector[k][1]<=minSwChanges)
+                        minSwChanges=resultObjVector[k][1];
+                }
+            }
+        }
+
+
+        if(maxLPL==minLPL)
+        {
+            minLPL=0;
+            //maxLPL=1;
+        }
+        if(maxSwChanges==minSwChanges)
+        {
+            minSwChanges=0;
+            //maxSwChanges=1;
+        }
+
+        cout << "maxLPL " << maxLPL << " maxSW " << maxSwChanges << endl;
+        cout << "minLPL " << minLPL << " minSW " << minSwChanges << endl;
+
+        std::vector < eoRealInterval > bounds;
+        eoRealInterval bound= eoRealInterval(minLPL,maxLPL);
+        eoRealInterval bound1=eoRealInterval(minSwChanges,maxSwChanges);
+        bounds.push_back(bound);
+        bounds.push_back(bound1);
+        instBounds=bounds;
+
+        vector<SatOptObjectiveVector> setupObjVector;
+        SatOptObjectiveVector objVect;
+        objVect[0]=minLPL;
+        objVect[1]=minSwChanges;
+        setupObjVector.push_back(objVect);
+
+        SatOptObjectiveVector objVect1;
+        objVect1[0]=maxLPL;
+        objVect1[1]=maxSwChanges;
+        setupObjVector.push_back(objVect1);
+
+
+        refPoint[0]=0;//maxLPL;
+        refPoint[1]=0;//maxSwChanges;
+    }
+    
+    std::vector < std::vector<double> > frontNormalizerRef(const std::vector < SatOptObjectiveVector > & _set, std::vector < eoRealInterval > _bounds,SatOptObjectiveVector ref_point)
+{
+    std::vector < std::vector<double> > front;
+    front.resize(_set.size());
+    for(unsigned int i=0; i < _set.size(); i++)
+    {
+        front[i].resize(SatOptObjectiveVector::Traits::nObjectives());
+        for (unsigned int j=0; j<SatOptObjectiveVector::Traits::nObjectives(); j++)
+        {
+            if (SatOptObjectiveVector::Traits::minimizing(j))
+            {
+                front[i][j]=ref_point[j] - abs((_set[i][j] - _bounds[j].minimum()) /_bounds[j].range());
+                //cout << "orig: " << _set[i][j] << "  ";
+                //cout << front[i][j] << "   ";
+            }
+            else
+            {
+                front[i][j]=((_set[i][j] - _bounds[j].minimum()) /_bounds[j].range()) - ref_point[j];
+            }
+        }
+        //cout << endl;
+    }
+    return front;
+}
+*/

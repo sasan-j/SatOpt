@@ -190,6 +190,33 @@ vector<RunResult> runJob(ALGO algo, int chCount, int swInst, int chInst,unsigned
     //result.setElapsedTime(timer->GetTimeInSeconds());
     return result;
 }
+
+    std::vector < std::vector<double> > frontNormalizer(const std::vector < SatOptObjectiveVector > & _set, std::vector < eoRealInterval > _bounds ,SatOptObjectiveVector ref_point)
+    {
+        std::vector < std::vector<double> > front;
+        front.resize(_set.size());
+        for(unsigned int i=0; i < _set.size(); i++)
+        {
+            front[i].resize(SatOptObjectiveVector::Traits::nObjectives());
+            for (unsigned int j=0; j<SatOptObjectiveVector::Traits::nObjectives(); j++)
+            {
+                if (SatOptObjectiveVector::Traits::minimizing(j))
+                {
+                    front[i][j]=1.0f - abs((_set[i][j] - _bounds[j].minimum()) /_bounds[j].range());
+                    //cout << " orig: " << _set[i][j] << "  ";
+                    //cout << front[i][j] << " "; //<< "
+                    //boundRange " << _bounds[j].range();
+
+                }
+                else
+                {
+                    front[i][j]=((_set[i][j] - _bounds[j].minimum()) /_bounds[j].range()) - ref_point[j];
+                }
+            }
+            //cout << endl;
+        }
+        return front;
+    }
  
     std::vector < std::vector<double> > frontNormalizerRef(const std::vector < SatOptObjectiveVector > & _set, std::vector < eoRealInterval > _bounds,SatOptObjectiveVector ref_point)
 {
@@ -407,7 +434,10 @@ public:
 	    //cout << "HyperVolume: " << hyperVolumeMetricUnary(resultsObjVectors[i]) << endl;
 	    try
 	    {
-		results[i].setUnaryHyperVol(hyperVolumeMetricUnary(resultsObjVectors[i]));
+	      
+	      std::vector < std::vector<double> > currentFrontNorm=frontNormalizer(resultsObjVectors[i],bounds,refPoint);
+	      //cout << "unary HV: " << hyperVolumeMetricUnary.calc_hypervolume(currentFrontNorm,currentFrontNorm.size(),2) << endl;
+	      results[i].setUnaryHyperVol(hyperVolumeMetricUnary.calc_hypervolume(currentFrontNorm,currentFrontNorm.size(),2));
 	    }
 	    catch (exception& e)
 	    {

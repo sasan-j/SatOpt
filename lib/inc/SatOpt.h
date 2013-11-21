@@ -8,6 +8,9 @@
 #ifndef SATOPT_H
 #define	SATOPT_H
 
+enum ALGO { NSGA2,SPEA2,IBEA,MOGA };
+
+
 // the moeoObjectiveVectorTraits : minimizing 2 objectives
 
 class SatOptObjectiveVectorTraits : public moeoObjectiveVectorTraits {
@@ -47,6 +50,7 @@ public:
     SatOpt() : moeoBitVector < SatOptObjectiveVector > (0) {
     }
 };
+
 
 #endif	/* SATOPT_H */
 

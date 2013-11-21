@@ -1,9 +1,9 @@
 /*
- * File:   main.cpp
- * Author: sasan
- *
- * Created on March 28, 2013, 2:40 PM
- */
+* File:   main.cpp
+* Author: sasan
+*
+* Created on March 28, 2013, 2:40 PM
+*/
 
 #include <cstdlib>
 #include <time.h>
@@ -46,6 +46,8 @@
 #include "../../lib/inc/MyException.h"
 #include "../../lib/inc/ExactExtractor.h"
 //#include "../../lib/inc/SatOptEval.h"
+#include "../../lib/inc/SatExperiments.h"
+#include "../../lib/inc/SatOptStats.h"
 
 
 //for getExact
@@ -58,7 +60,6 @@
 
 using namespace std;
 
-enum ALGO { NSGA2,SPEA2,IBEA,MOGA };
 
 
 //samplePayload.Payload();
@@ -70,318 +71,86 @@ vector<string> chan_instance; //says which channel should connect to amp
 string resultDir = "result/";
 
 
-void calculateBounds(vector< vector< vector<SatOptObjectiveVector> > >);
-std::vector < std::vector<double> > frontNormalizerRef(const std::vector < SatOptObjectiveVector > & _set, std::vector < eoRealInterval > _bounds,SatOptObjectiveVector ref_point);
-
-
-
-
-
 // evaluation of objective functions
 
-class SatOptEval : public moeoEvalFunc < SatOpt >
-{
-public:
-
-    void operator () (SatOpt & _satOpt)
+    void SatOptEval::operator () (SatOpt & _satOpt)
     {
-        if (_satOpt.invalidObjectiveVector())
-        {
+	if (_satOpt.invalidObjectiveVector())
+	{
 
 
-            vector<int> tmpVector;
-            vector<int> switchPos;
+	    vector<int> tmpVector;
+	    vector<int> switchPos;
 
 
-            for (unsigned i = 0; i < _satOpt.size(); i++)
-            {
-                tmpVector.push_back(_satOpt[i]); //load individual into tmpVector
-            }
+	    for (unsigned i = 0; i < _satOpt.size(); i++)
+	    {
+		tmpVector.push_back(_satOpt[i]); //load individual into tmpVector
+	    }
 
-            //converting int vector of the individual (tmpVector) into
-            //another vector representing switch state
-            //each two bit -> one switch state
-            int result;
-            for (unsigned int g = 0; g <= tmpVector.size() - 2; g = g + 2)
-            {
-                int x = tmpVector[g];
-                int y = tmpVector[g + 1];
-                if (x == 0 && y == 0)
-                {
-                    result = 1;
-                }
-                else if (x == 1 && y == 0)
-                {
-                    result = 2;
-                }
-                else if (x == 0 && y == 1)
-                {
-                    result = 3;
-                }
-                else
-                {
-                    result = 4;
-                }
-                switchPos.push_back(result);
-            }
+	    //converting int vector of the individual (tmpVector) into
+	    //another vector representing switch state
+	    //each two bit -> one switch state
+	    int result;
+	    for (unsigned int g = 0; g <= tmpVector.size() - 2; g = g + 2)
+	    {
+		int x = tmpVector[g];
+		int y = tmpVector[g + 1];
+		if (x == 0 && y == 0)
+		{
+		    result = 1;
+		}
+		else if (x == 1 && y == 0)
+		{
+		    result = 2;
+		}
+		else if (x == 0 && y == 1)
+		{
+		    result = 3;
+		}
+		else
+		{
+		    result = 4;
+		}
+		switchPos.push_back(result);
+	    }
 
-            vector<double> evalResult;
+	    vector<double> evalResult;
 
-            if(p1->getSwCount()==50){
-                evalResult = samplePayload->run(switchPos, chan_instance);
-                //cout << "channel instance calling " << chan_instance.size() << endl;
-                //cout << "channel instance calling " << chan_instance[0] << endl;
-                }
-            else
-                evalResult = payloadObject100->run(switchPos, chan_instance);
-            //////////////////////////////////////////////////////////////////
-            int switchChanges = 0;
-            for (unsigned int i = 0; i < switchPos.size(); i++)
-            {
-                if (switchPos[i] != initSwitchPos[i])
-                    switchChanges++;
-            }
+	    if(p1->getSwCount()==50){
+		evalResult = samplePayload->run(switchPos, chan_instance);
+		//cout << "channel instance calling " << chan_instance.size() << endl;
+		//cout << "channel instance calling " << chan_instance[0] << endl;
+		}
+	    else
+		evalResult = payloadObject100->run(switchPos, chan_instance);
+	    //////////////////////////////////////////////////////////////////
+	    int switchChanges = 0;
+	    for (unsigned int i = 0; i < switchPos.size(); i++)
+	    {
+		if (switchPos[i] != initSwitchPos[i])
+		    switchChanges++;
+	    }
 
-            //////////////////////////////////////////////////////////////////
+	    //////////////////////////////////////////////////////////////////
 
-            SatOptObjectiveVector objVec;
+	    SatOptObjectiveVector objVec;
 
 
-            if (!(((int)(evalResult[0]))== evalResult[0]))// penalty for switch changes
-            {
-                switchChanges = evalResult[0];// + switchChanges;
-            }
+	    if (!(((int)(evalResult[0]))== evalResult[0]))// penalty for switch changes
+	    {
+		switchChanges = evalResult[0];// + switchChanges;
+	    }
 
-            objVec[0] = evalResult[0]; //quality metric LPL
-            objVec[1] = switchChanges;
-            //objVec[2] = evalResult[1];//constructed paths
-            //objVec[3] = evalResult[2];//longest path
+	    objVec[0] = evalResult[0]; //quality metric LPL
+	    objVec[1] = switchChanges;
+	    //objVec[2] = evalResult[1];//constructed paths
+	    //objVec[3] = evalResult[2];//longest path
 
-            _satOpt.objectiveVector(objVec);
-        }
-    }
-};
-
-class SatOptStats : public moeoObjVecStat<SatOpt >
-{
-    string str;
-    SatOptEval eval;
-    RunResult *currentResult;
-
-    moeoUnboundedArchive < SatOpt > arch;
-    std::vector < std::vector<double> >frontVector;
-    unsigned int genCount;
-public:
-    ALGO algo;
-
-    SatOptStats(string _str) : moeoObjVecStat <SatOpt > ()
-    {
-        str = _str;
-        genCount = 0;
+	    _satOpt.objectiveVector(objVec);
+	}
     }
 
-    void operator()(const eoPop<SatOpt>& _pop)
-    {
-        //genCount++;
-        this->currentResult->incGenCount();
-        if((int)algo!=3)
-	     doit(_pop);
-    }
-
-    void setCurrentResult(RunResult *_result)
-    {
-        this->currentResult = _result;
-    }
-private:
-
-    void doit(const eoPop<SatOpt> &_pop)
-    {
-        moeoUnboundedArchive < SatOpt > tempArch;
-        tempArch(_pop);
-        if(!arch.equals(tempArch))
-        {
-            ofstream file (resultDir+this->currentResult->resultFileName, ios::app);
-            if (file.is_open())
-            {
-                //now current archive should flush into result file
-                file << "genCount " << this->currentResult->genCount << endl;
-                arch(tempArch);
-                //cout should change to the file output stream
-                arch.sortedPrintOn(file);
-                file.close();
-            }
-
-        }
-    }
-};
-
-RunResult runAlgo(ALGO algo, string runFileName, unsigned int SEED)
-{
-    // generate initial population
-    eoPop < SatOpt > pop;
-    rng.reseed(time(NULL));
-    RunResult result;
-    result.resultFileName = runFileName;
-    remove((resultDir+runFileName).c_str());
-
-    //for time calculations
-    std::chrono::time_point<std::chrono::system_clock> start, end;
-    start = std::chrono::system_clock::now();
-    std::time_t start_time = std::chrono::system_clock::to_time_t(start);
-    ofstream file (resultDir+runFileName, ios::app);
-    if (file.is_open())
-    {
-        file << "START at " << std::ctime(&start_time) << endl;
-        file.close();
-    }
-
-
-    // objective functions evaluation
-    SatOptEval eval;
-
-    // crossover and mutation
-    //eoQuadCloneOp < SatOpt > xover;
-    //eo1PtBitXover<SatOpt> xover;
-    eoNPtsBitXoverCustom<SatOpt> xover;
-    //the probability would be P_MUT/chrome_size because the second argument which is true!(it is for doing normalization)
-    eoBitMutation<SatOpt> mutation(p1->getProbMut(),true);
-
-
-    eoSGATransform<SatOpt>settings(xover, 0.8, mutation, 1.0);
-
-    // fill it!
-    for (unsigned int igeno = 0; igeno < p1->getPopSize(); igeno++)
-    {
-        SatOpt v; // void individual, to be filled
-        for (unsigned ivar = 0; ivar < p1->getVectorSize(); ivar++)
-        {
-            bool r = rng.flip(); // new value, random in {0,1}
-            v.push_back(r); // append that random value to v
-        }
-        eval(v); // evaluate it
-        pop.push_back(v); // and put it in the population
-    }
-
-    // shuffle  - this is a test
-    pop.shuffle();
-    //pop.sortedPrintOn(cout);
-
-
-
-
-    //////////////////////////////////////
-    // termination condition
-    /////////////////////////////////////
-
-    eoSecondsElapsedContinue<SatOpt> continuatorMaxTime(p1->getMaxTime());
-    eoGenContinue<SatOpt> continuatorMaxGen(p1->getMaxGen());
-    eoCheckPoint<SatOpt> checkpoint(continuatorMaxTime);
-
-    SatOptStats satStats("haha");
-    satStats.setCurrentResult(&result);
-    ///////////////////////////////////////////////////////////////////////
-    satStats.algo=algo;
-    checkpoint.add(satStats);
-
-    eoSteadyFitContinue<SatOpt> continuatorMaxSteady(p1->getMinGen(),p1->getIdleGen());
-
-    eoCombinedContinue<SatOpt> continuator(continuatorMaxSteady);
-
-    //continuator.add(continuatorMaxSteady);
-    continuator.add(checkpoint);
-    continuator.add(continuatorMaxGen);
-
-
-    if (algo == NSGA2)
-    {
-        cout << "algo is NSGA-II" << endl;
-        // build NSGA-II
-        moeoNSGAII_snj < SatOpt > nsgaII(continuator, eval, settings);
-        // run the algo
-        nsgaII(pop);
-    }
-    else if (algo == SPEA2)
-    {
-        cout << "algo is SPEA-II" << endl;
-        ////SPEA2
-        moeoUnboundedArchive < SatOpt > arch_speaII;
-        moeoSPEA2 < SatOpt >speaII(continuator, eval, settings, arch_speaII, 1, false);
-        speaII(pop);
-        result.setFinalArchiveFromPop(arch_speaII);
-    }
-    else if (algo == IBEA)
-    {
-        cout << "algo is IBEA" << endl;
-        // build IBEA
-        //moeoHyperVolumeDifferenceMetric <SatOptObjectiveVector>metricVector(true, 1.1);
-        moeoHypervolumeBinaryMetric <SatOptObjectiveVector>metricVector(1.1);
-        //moeoAdditiveEpsilonBinaryMetric < SatOptObjectiveVector > metricVector;
-        moeoIBEA < SatOpt > ibea(continuator, eval, settings, metricVector, 0.05);
-        // run the algo
-        ibea(pop);
-    }
-    else if (algo == MOGA)
-    {
-        cout << "algo is MOGA" << endl;
-        // build MOGA
-        moeoMOGA < SatOpt > moga(continuator, eval, settings);
-        // run the algo
-        moga(pop);
-    }
-
-    if(algo != SPEA2)
-        result.setFinalArchiveFromPop(pop);
-
-    //////////////////////////////
-    //time calculations///////////
-    end = std::chrono::system_clock::now();
-
-    std::chrono::duration<double> elapsed_seconds = end-start;
-    std::time_t end_time = std::chrono::system_clock::to_time_t(end);
-
-    result.elapsedTime = elapsed_seconds.count();
-
-
-    file.open(resultDir+runFileName, ios::app);
-    if (file.is_open())
-    {
-        file << "DONE after " << result.genCount << " generations." << endl;
-        file << "Finished computation at " << std::ctime(&end_time)
-             << "elapsed time: " << elapsed_seconds.count() << "s" << endl;
-        file.close();
-    }
-    /////////////////////
-    /////////////////////
-    /*
-    // printing of the final archive
-    cout << "\nFinal Archive" << endl;
-    cout << "Switch Changes\tLPL\n";
-    arch.sortedPrintOn(cout);
-    cout << endl << "Final Population" << endl;
-    */
-    //timer->End();
-    //result.setElapsedTime(timer->GetTimeInSeconds());
-    return result;
-}
-
-
-vector<RunResult> runJob(ALGO algo, int chCount, int swInst, int chInst,unsigned int numRuns)
-{
-    vector<RunResult> results;
-
-    //creates results directory
-    mkdir(resultDir.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH); //with read/write/search permissions for owner and group, and with read/search permissions for others.
-    unsigned int SEED=1;
-    for (unsigned int i = 0; i < numRuns; i++)
-    {
-        char temp[256];
-        sprintf(temp,"run_res_%d_%d_%d_%d_%d.txt",chCount,algo,swInst,chInst,i);
-        string runFileName=temp;
-        results.push_back(runAlgo(algo, runFileName, SEED)); //i acts as seed
-        SEED++;
-    }
-    return results;
-}
 
 
 // main
@@ -420,28 +189,27 @@ int main_function(int argc, char *argv[])
 
     FileAccess fileAcc;
     vector<string> chanInstanceStr;
-    bool isExactAvailable =  false;
 
     //cout << "Now get instances " << chInst << " " << chCount << endl;
 
 
     if(chInst<30 && chCount<40)
     {
-        vector<string> chanInstanceStr;
-        chanInstanceStr=fileAcc.getChanInstance(chCount,chInst);
-        if(chanInstanceStr.size()>0)
-        {
-            cout << chanInstanceStr[0] << " " << chanInstanceStr[1] << endl;
-            p1->setName(chanInstanceStr[1]);
-        }
-        else
-            throw MyException("Check that if ref folder and its contents are available-channel");
+	vector<string> chanInstanceStr;
+	chanInstanceStr=fileAcc.getChanInstance(chCount,chInst);
+	if(chanInstanceStr.size()>0)
+	{
+	    cout << chanInstanceStr[0] << " " << chanInstanceStr[1] << endl;
+	    p1->setName(chanInstanceStr[1]);
+	}
+	else
+	    throw MyException("Check that if ref folder and its contents are available-channel");
 
     }
     else
     {
-        //cout << "Instance is " << instance << endl;
-        p1->setName(instance);
+	//cout << "Instance is " << instance << endl;
+	p1->setName(instance);
     }
     //cout << p1->getName() << endl;
     chan_instance = p1->getChannels();
@@ -450,19 +218,19 @@ int main_function(int argc, char *argv[])
 
     if(swInst<30)
     {
-        vector<string> swInstanceStr;
-        swInstanceStr=fileAcc.getSwInstance(swCount, swInst);
-        if(swInstanceStr.size()>0)
-        {
-            cout << swInstanceStr[0] << " " << swInstanceStr[1] << endl;
-            switchInstStr=swInstanceStr[1];
-        }
-        else
-            throw MyException("Check that if ref folder and its contents are available-switch");
+	vector<string> swInstanceStr;
+	swInstanceStr=fileAcc.getSwInstance(swCount, swInst);
+	if(swInstanceStr.size()>0)
+	{
+	    cout << swInstanceStr[0] << " " << swInstanceStr[1] << endl;
+	    switchInstStr=swInstanceStr[1];
+	}
+	else
+	    throw MyException("Check that if ref folder and its contents are available-switch");
     }
     else
     {
-        switchInstStr = switchInst.value();
+	switchInstStr = switchInst.value();
     }
 
 
@@ -483,29 +251,29 @@ int main_function(int argc, char *argv[])
 
     if (switchInstStr.length() == VEC_SIZE / 2)
     {
-        //cout << "Switch positions are given by the user!" << endl;
-        int x;
-        for (unsigned int i = 0; i < VEC_SIZE / 2; i++)
-        {
-            x = switchInstStr[i] - 48; //converting ascii code of char numbers to integers
-            switchPos.push_back(x);
-            //cout << x;
-        }
-        //cout << endl;
+	//cout << "Switch positions are given by the user!" << endl;
+	int x;
+	for (unsigned int i = 0; i < VEC_SIZE / 2; i++)
+	{
+	    x = switchInstStr[i] - 48; //converting ascii code of char numbers to integers
+	    switchPos.push_back(x);
+	    //cout << x;
+	}
+	//cout << endl;
     }
     else
     {
-        if (switchInstStr.length() > 0)
-            cout << "The given switch positions is invalid, so let's generate some random positions!" << endl;
-        else
-            cout << "No switch position specified so let's generate some random positions!" << endl;
-        /////////////////////////////
-        for (unsigned i = 0; i < VEC_SIZE / 2; i++)
-        {
-            // generate secret number between 1 and 4:
-            switchPos.push_back(rng.rand() % 4 + 1);
-            //cout << switchPos[i];
-        }
+	if (switchInstStr.length() > 0)
+	    cout << "The given switch positions is invalid, so let's generate some random positions!" << endl;
+	else
+	    cout << "No switch position specified so let's generate some random positions!" << endl;
+	/////////////////////////////
+	for (unsigned i = 0; i < VEC_SIZE / 2; i++)
+	{
+	    // generate secret number between 1 and 4:
+	    switchPos.push_back(rng.rand() % 4 + 1);
+	    //cout << switchPos[i];
+	}
     }
 
     p1->setInitSwitchPos(switchPos);
@@ -517,318 +285,29 @@ int main_function(int argc, char *argv[])
 
 
     /*
-     char temp[256];
-     sprintf(temp,"final_res_%d_%d_%d_%d.txt",chCount,algo,swInst,chInst);
-     string fResultFileName=temp;
-     remove((resultDir+fResultFileName).c_str());
-     ofstream  finalResFile(resultDir+fResultFileName, ios::app);
-     if (finalResFile.is_open())
-     {
-         finalResFile.close();
-     }
-     */
+    char temp[256];
+    sprintf(temp,"final_res_%d_%d_%d_%d.txt",chCount,algo,swInst,chInst);
+    string fResultFileName=temp;
+    remove((resultDir+fResultFileName).c_str());
+    ofstream  finalResFile(resultDir+fResultFileName, ios::app);
+    if (finalResFile.is_open())
+    {
+	finalResFile.close();
+    }
+    */
     /////////////////////////
     /////////////////////////
     ///////////////////////
-    vector< vector<RunResult> > fullResults;
-
-    for(int i=0; i<4; i++)
-    {
-        vector<RunResult> results;
-        results=runJob((ALGO)i, chCount, swInst, chInst, runs);
-        fullResults.push_back(results);
-    }
-
-
-    typename vector<RunResult>::iterator iter1;
-    typename eoPop<SatOpt>::iterator iter2;
-
-    for(int i=0; i<4; i++)
-    {
-        //vector<RunResult> results=fullResults[i];
-        iter1 = fullResults[i].begin();
-        //iter2++;
-        //int popSize = _pop.size();
-        for (; iter1 != fullResults[i].end(); )
-        {
-            //std::cout << "first for\n";
-            iter2 = (*iter1).finalArchive.begin();
-            for (; iter2 != (*iter1).finalArchive.end();)
-            {
-                if ((int)(*iter2).objectiveVector(0) != (*iter2).objectiveVector(0))
-                {
-                    (*iter1).finalArchive.erase(iter2);
-                }
-                else
-                    ++iter2;
-            }
-            ++iter1;
-        }
-    }
-
-    moeoUnboundedArchive<SatOpt> optimalFront(false);//was false
-    vector<SatOptObjectiveVector> optimalFrontObjVector;
-
-
-    ExactExtractor ep = ExactExtractor(swInst,chCount,chInst);
-    if(ep.isAvailable())
-    {
-        //cout << "exact found" << endl;
-        optimalFrontObjVector = ep.getExactFront();
-        isExactAvailable = true;
-    }
-    else
-    {
-        //cout << "exact not found" << endl;
-        //filling the optimal front
-        for(int i=0; i<4; i++)
-        {
-            vector<RunResult> results=fullResults[i];
-            for(unsigned int i=0; i<results.size(); i++)
-            {
-                optimalFront(results[i].finalArchive);
-            }
-            //cout << "generated optimila" << endl;
-            //optimalFront.sortedPrintOn(cout);
-        }
-        //this loop extracts objective vectors of generated optimal front into new vector
-        for(unsigned int i=0; i<optimalFront.size(); i++)
-        {
-            optimalFrontObjVector.push_back(optimalFront[i].objectiveVector());
-        }
-    }
-
-    vector< vector< vector<SatOptObjectiveVector> > > resultsObjVectorsVect;
-
-
-    for(int i=0; i<4; i++)
-    {
-        vector<RunResult> results=fullResults[i];
-        vector< vector<SatOptObjectiveVector> >resultsObjVectors;
-        //This piece of code extracts objective vectors from archives and put all of them into new vector
-        for(unsigned int i=0; i<results.size(); i++)
-        {
-            vector<SatOptObjectiveVector> resultObjVectors;
-            for(int j=0; j<results[i].finalArchive.size(); j++)
-            {
-                resultObjVectors.push_back(results[i].finalArchive[j].objectiveVector());
-            }
-            resultsObjVectors.push_back(resultObjVectors);
-        }
-        resultsObjVectorsVect.push_back(resultsObjVectors);
-    }
-
-    //calculate objective extremes
-    double maxLPL=0;
-    double maxSwChanges=0;
-    for(int i=0; i<4; i++)
-    {
-        vector< vector<SatOptObjectiveVector> >resultsObjVectors;
-        resultsObjVectors = resultsObjVectorsVect[i];
-        for(unsigned int i=0; i<resultsObjVectors.size(); i++)
-        {
-            for(int j=0; j<resultsObjVectors[i].size(); j++)
-            {
-                SatOptObjectiveVector resultObjVector=resultsObjVectors[i][j];
-                if(resultObjVector[0]>=maxSwChanges)
-                    maxSwChanges=resultObjVector[0];
-                if(resultObjVector[1]>=maxLPL)
-                    maxLPL=resultObjVector[1];
-            }
-        }
-    }
-    //cout << maxLPL << endl << maxSwChanges;
-
-
-    SatOptObjectiveVector refFront;
-    refFront[0]=maxSwChanges;
-    refFront[1]=maxLPL;
-    moeoHyperVolumeMetric < SatOptObjectiveVector > hyperVolumeMetricUnary(false,refFront);
-
-
-    for(int l=0; l<4; l++)
-    {
-        vector<RunResult> results=fullResults[l];
-        vector< vector<SatOptObjectiveVector> >resultsObjVectors;
-        resultsObjVectors = resultsObjVectorsVect[l];
-        for(unsigned int i=0; i<results.size(); i++)
-        {
-
-            //hyperVolDiff.setup(optimalFrontObjVector,resultsObjVectors[i]);
-            //cout << "HyperVolume: " << hyperVolumeMetricUnary(resultsObjVectors[i]) << endl;
-            try
-            {
-                results[i].setUnaryHyperVol(hyperVolumeMetricUnary(resultsObjVectors[i]));
-            }
-            catch (exception& e)
-            {
-                cout << "unary hypervolume error is: " << e.what()  << endl;
-                results[i].setUnaryHyperVol(333);
-            }
-        }
-
-        //cout << "HyperVolume: " << hyperVolumeMetricUnary(optimalFrontObjVector) << endl;
-        //hyperVolumeMetricUnary(optimalFrontObjVector);
-
-        moeoHyperVolumeDifferenceMetric <SatOptObjectiveVector>hyperVolDiff(true, refFront);
-        //moeoHypervolumeBinaryMetric <SatOptObjectiveVector>hyperVolBinary(1.1);
-        //cout << "\nBinary Hyper volume is:" << endl;
-        //This loop calculates and print the hyperVolumeDiff
-        for(unsigned int i=0; i<results.size(); i++)
-        {
-            if(optimalFrontObjVector.size() > 0 && resultsObjVectors[i].size() > 0)
-            {
-                //cout << "hyperDiff: " << hyperVolDiff(optimalFrontObjVector,resultsObjVectors[i]) << endl;
-                try
-                {
-                    results[i].setBinaryHyperVol(hyperVolDiff(optimalFrontObjVector,resultsObjVectors[i]));
-                    //results[i].setBinaryHyperVol(hyperVolBinary(optimalFrontObjVector,optimalFrontObjVector));
-                }
-                catch (exception& e)
-                {
-                    cout << "error is: " << e.what()  << endl;
-                    results[i].setBinaryHyperVol(333);
-                }
-
-            }
-            else results[i].setBinaryHyperVol(333);
-        }
-
-        moeoVecVsVecAdditiveEpsilonBinaryMetric < SatOptObjectiveVector > additiveEpsilon(true);
-        //This loop calculates and print the AdditiveEpsilonBinaryMetric
-        for(unsigned int i=0; i<results.size(); i++)
-        {
-
-            if(optimalFrontObjVector.size() > 0 && resultsObjVectors[i].size() > 0)
-            {
-                //hyperVolDiff.setup(optimalFrontObjVector,resultsObjVectors[i]);
-                //cout << "additiveEpsilon: " << additiveEpsilon(resultsObjVectors[i],optimalFrontObjVector) << endl;
-                try
-                {
-                    results[i].setAdditiveEps(additiveEpsilon(resultsObjVectors[i],optimalFrontObjVector));
-                }
-                catch (exception& e)
-                {
-                    cout << "error is: " << e.what()  << endl;
-                    results[i].setAdditiveEps(333);
-                }
-            }
-            else results[i].setAdditiveEps(333);
-        }
-
-
-        //This loop calculates and print the entropyMetric
-        for(unsigned int i=0; i<results.size(); i++)
-        {
-            moeoEntropyMetric < SatOptObjectiveVector > entropyMetric;
-
-
-
-            if(optimalFrontObjVector.size() > 0 && resultsObjVectors[i].size() > 0)
-            {
-                //by swapping the inputs we will get constant value for all, i don't know why
-
-                try
-                {
-                    results[i].setEntropy(entropyMetric(resultsObjVectors[i],optimalFrontObjVector));
-                    if(i<(results.size()-2))
-                        cout << "entropyMetric: " << entropyMetric(resultsObjVectors[i],resultsObjVectors[i+1]) << endl;
-                    //cout << "entropyMetric: " << entropyMetric(optimalFrontObjVector,resultsObjVectors[i]) << endl;
-
-                }
-                catch (exception& e)
-                {
-                    cout << "error is: " << e.what() << endl;
-                    results[i].setEntropy(333);
-                }
-
-            }
-            else results[i].setEntropy(333);
-
-        }
-
-        char temp[256];
-        sprintf(temp,"final_res_%d_%d_%d_%d.txt",chCount,l,swInst,chInst);//i stands for algo
-        string fResultFileName=temp;
-        remove((resultDir+fResultFileName).c_str());
-        ofstream  finalResFile(resultDir+fResultFileName, ios::app);
-        //finalResFile.open(resultDir+fResultFileName, ios::app);
-        if (finalResFile.is_open())
-        {
-            finalResFile << "OptimalFront" << endl;
-            finalResFile << "unaryHyperVol " << hyperVolumeMetricUnary(optimalFrontObjVector)  << endl;
-            if(isExactAvailable)
-            {
-                finalResFile << "Optimal front is obtained by exact method\n-------------------------\n";
-                finalResFile << optimalFrontObjVector.size() << endl;
-                for(std::vector<SatOptObjectiveVector>::size_type i=0;i<optimalFrontObjVector.size();i++){
-                     finalResFile << optimalFrontObjVector[i][0] << " " << optimalFrontObjVector[i][1] << endl;
-                }
-            }
-            else
-            {
-                optimalFront.sortedPrintOn(finalResFile);
-                finalResFile << "-------------------------\n";
-            }
-
-            for(unsigned int i=0; i<results.size(); i++)
-            {
-                finalResFile << "runNumber " << i << endl;
-                finalResFile << "genCount " << results[i].genCount << endl;
-                finalResFile << "elapsedTime " << results[i].elapsedTime << endl;
-                finalResFile << "unaryHyperVol " << results[i].getUnaryHyperVol() << endl;
-                finalResFile << "binaryHyperVol " << results[i].getBinaryHyperVol() << endl;
-                finalResFile << "additiveEps " << results[i].getAdditiveEps() << endl;
-                finalResFile << "entropy " << results[i].getEntropy() << endl;
-                finalResFile << "archive " << i << endl;
-                results[i].finalArchive.sortedPrintOn(finalResFile);
-            }
-            finalResFile.close();
-        }
-
-
-        sprintf(temp,"final_res_%d_%d_%d_%d.csv",chCount,l,swInst,chInst);//i stands for algo
-        string fResultCSVFileName=temp;
-        remove((resultDir+fResultCSVFileName).c_str());
-        ofstream  finalResCSVFile(resultDir+fResultCSVFileName, ios::app);
-        if (finalResCSVFile.is_open())
-        {
-            finalResCSVFile << "runNumber," << "genCount," << "elapsedTime," << "noSolutions,"
-                            << "unaryHyperVol," << "binaryHyperVol," << "additiveEps," << "entropy\r\n";
-
-            for(unsigned int i=0; i<results.size(); i++)
-            {
-                finalResCSVFile << i << ","
-                                << results[i].genCount << ","
-                                << results[i].elapsedTime << ","
-                                << results[i].finalArchive.size() << ","
-                                << results[i].getUnaryHyperVol() << ","
-                                << results[i].getBinaryHyperVol() << ","
-                                << results[i].getAdditiveEps() << ","
-                                << results[i].getEntropy() << "\r\n";
-            }
-            try
-            {
-                finalResCSVFile << ",,," << hyperVolumeMetricUnary(optimalFrontObjVector) << ",,,";
-            }
-            catch (exception& e)
-            {
-                cout << "optimal front unary hypervolume error is: " << e.what()  << endl;
-                finalResCSVFile << ",,,333,,,";
-            }
-
-
-            finalResCSVFile.close();
-        }
-
-
-    }
-
-
-
-
-
-
+    
+    SatExperiment* se= new SatExperiment(p1,chCount, swInst, chInst, runs, resultDir);
+    
+    se->runExperiments();
+    se->validateResults();
+    se->extractExactOrTrueFron();
+    //se->extractTrueFront();
+    se->extractObjVectors();
+    se->calculateBounds();
+    se->calculateMetrics();
 
 
 
@@ -843,125 +322,19 @@ int main(int argc, char **argv)
 
     try
     {
-        //std::to_string(5);
-        main_function(argc, argv);
+	//std::to_string(5);
+	main_function(argc, argv);
     }
     catch (MyException& e)
     {
-        cout << "Exception: " << e.what() << '\n';
+	cout << "Exception: " << e.what() << '\n';
     }
     catch (exception& e)
     {
-        cout << "Exception: " << e.what() << '\n';
+	cout << "Exception: " << e.what() << '\n';
     }
 
 
     return 0;
 }
 
-/*
-
-    void calculateBounds(vector< vector< vector<SatOptObjectiveVector> > > resultsObjVectorsVect)
-    {
-
-        ////////////////////////////////////////////
-        ////////////////////////////////////////////
-        //calculate objective extremes
-        double maxLPL=0;
-        double minLPL=100;
-        double maxSwChanges=0;
-        double minSwChanges=100;
-
-        for(int i=0; i<4; i++)
-        {
-            //cout << i << endl;
-
-            vector< vector<SatOptObjectiveVector> >resultsObjVectors;
-            resultsObjVectors = resultsObjVectorsVect[i];
-            for(unsigned int j=0; j<resultsObjVectors.size(); j++)
-            {
-                vector<SatOptObjectiveVector> resultObjVector=resultsObjVectors[j];
-
-                for(unsigned int k=0; k<resultObjVector.size(); k++)
-                {
-                    //SatOptObjectiveVector resultObjVector=resultsObjVectors[j];
-                    //cout << resultObjVector[k][0] << " " << resultObjVector[k][1] << endl;
-                    //Maximums
-
-                    if(resultObjVector[k][0]>=maxLPL)
-                        maxLPL=resultObjVector[k][0];
-                    if(resultObjVector[k][1]>=maxSwChanges)
-                        maxSwChanges=resultObjVector[k][1];
-
-                    //Minimums
-                    if(resultObjVector[k][0]<=minLPL)
-                        minLPL=resultObjVector[k][0];
-                    if(resultObjVector[k][1]<=minSwChanges)
-                        minSwChanges=resultObjVector[k][1];
-                }
-            }
-        }
-
-
-        if(maxLPL==minLPL)
-        {
-            minLPL=0;
-            //maxLPL=1;
-        }
-        if(maxSwChanges==minSwChanges)
-        {
-            minSwChanges=0;
-            //maxSwChanges=1;
-        }
-
-        cout << "maxLPL " << maxLPL << " maxSW " << maxSwChanges << endl;
-        cout << "minLPL " << minLPL << " minSW " << minSwChanges << endl;
-
-        std::vector < eoRealInterval > bounds;
-        eoRealInterval bound= eoRealInterval(minLPL,maxLPL);
-        eoRealInterval bound1=eoRealInterval(minSwChanges,maxSwChanges);
-        bounds.push_back(bound);
-        bounds.push_back(bound1);
-        instBounds=bounds;
-
-        vector<SatOptObjectiveVector> setupObjVector;
-        SatOptObjectiveVector objVect;
-        objVect[0]=minLPL;
-        objVect[1]=minSwChanges;
-        setupObjVector.push_back(objVect);
-
-        SatOptObjectiveVector objVect1;
-        objVect1[0]=maxLPL;
-        objVect1[1]=maxSwChanges;
-        setupObjVector.push_back(objVect1);
-
-
-        refPoint[0]=0;//maxLPL;
-        refPoint[1]=0;//maxSwChanges;
-    }
-    
-    std::vector < std::vector<double> > frontNormalizerRef(const std::vector < SatOptObjectiveVector > & _set, std::vector < eoRealInterval > _bounds,SatOptObjectiveVector ref_point)
-{
-    std::vector < std::vector<double> > front;
-    front.resize(_set.size());
-    for(unsigned int i=0; i < _set.size(); i++)
-    {
-        front[i].resize(SatOptObjectiveVector::Traits::nObjectives());
-        for (unsigned int j=0; j<SatOptObjectiveVector::Traits::nObjectives(); j++)
-        {
-            if (SatOptObjectiveVector::Traits::minimizing(j))
-            {
-                front[i][j]=ref_point[j] - abs((_set[i][j] - _bounds[j].minimum()) /_bounds[j].range());
-                //cout << "orig: " << _set[i][j] << "  ";
-                //cout << front[i][j] << "   ";
-            }
-            else
-            {
-                front[i][j]=((_set[i][j] - _bounds[j].minimum()) /_bounds[j].range()) - ref_point[j];
-            }
-        }
-        //cout << endl;
-    }
-    return front;
-}
-*/

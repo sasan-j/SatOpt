@@ -306,7 +306,7 @@ int main_function(int argc, char *argv[])
     //se->extractExactOrTrueFron();
     se->extractTrueFront();
     se->extractObjVectors();
-    //se->calculateBounds();
+    se->calculateBounds();
     se->calculateMetrics();
 
 

@@ -1167,7 +1167,7 @@ vector<double> Payload::run(vector<int> position_vector,
     //cout << "after createGraph function call" << endl;
     //cout << "channel instance vect size " << chan_instance.size() << endl;
     for (unsigned int r = 0; r < chan_instance.size(); r++) {
-        cout << chan_instance[r] << endl;
+        //cout << chan_instance[r] << endl;
         for (unsigned int j = 0; j < this->channels.size(); j++) {
             if (chan_instance[r] == this->channels[j]->getName()) {
                 channels_to_test_path.push_back(this->channels[j]);

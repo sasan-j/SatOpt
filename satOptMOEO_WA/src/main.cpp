@@ -302,14 +302,18 @@ int main_function(int argc, char *argv[])
     SatExperiment* se= new SatExperiment(p1,chCount, swInst, chInst, runs, resultDir);
     
     se->runExperiments();
+    //cout << "finish running experiments\n";
     se->validateResults();
+    //cout << "validated results\n";
     //se->extractExactOrTrueFron();
     se->extractTrueFront();
+    //cout << "extracted true front\n";
     se->extractObjVectors();
+    //cout << "extracted objective vectors\n";
     se->calculateBounds();
+    //cout << "calculated bounds\n";
     se->calculateMetrics();
-
-
+    //cout << "calculated metrics\n";
 
     return EXIT_SUCCESS;
 }

@@ -517,8 +517,8 @@ public:
 		try
 		{
 		    results[i].setEntropy(entropyMetric(resultsObjVectors[i],optimalFrontObjVector));
-		    if(i<(results.size()-2))
-			cout << "entropyMetric: " << entropyMetric(resultsObjVectors[i],resultsObjVectors[i+1]) << endl;
+		    //if(i<(results.size()-2))
+			//cout << "entropyMetric: " << entropyMetric(resultsObjVectors[i],resultsObjVectors[i+1]) << endl;
 		    //cout << "entropyMetric: " << entropyMetric(optimalFrontObjVector,resultsObjVectors[i]) << endl;
 
 		}
@@ -619,16 +619,27 @@ public:
 
     for(int l=0; l<4; l++)
     {
+      cout << "start of loop\n";
 	vector<RunResult> results=fullResults[l];
 	vector< vector<SatOptObjectiveVector> >resultsObjVectors;
 	resultsObjVectors = resultsObjVectorsVect[l];
-	
+	      cout << "before unary\n";
+
 	calculateUnaryHV(results, resultsObjVectors);
+		      cout << "before diff\n";
+
 	calculateBinaryDiffHV(results, resultsObjVectors);
+		      cout << "before eps\n";
+
 	calculateBinaryAdditiveEpsilon(results, resultsObjVectors);
+		      cout << "before entropy\n";
+
 	calculateBinaryEntropy(results, resultsObjVectors);
-	
+		      cout << "before write txt\n";
+
 	writeResultsToTxt(results,l);
+		      cout << "before write csv\n";
+
 	writeResultsToCSV(results,l);
     }
     

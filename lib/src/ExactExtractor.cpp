@@ -67,15 +67,19 @@ bool ExactExtractor::isAvailable()
             //cout << lines.size() << endl;
         }
         infile.close();
-        compareStr="Pareto front found for "+std::to_string(swInst)+"_"+std::to_string(chInst);
+        compareStr=" Pareto front found for "+std::to_string(swInst)+"_"+std::to_string(chInst);
         for(std::vector<std::string>::size_type i=0; i<lines.size(); i++)
         {
             //cout << "-----------------" << endl;
-            //cout << lines[i] << endl;
-            //cout << compareStr << endl;
-            if(lines[i].find(compareStr)!=std::string::npos)
+            //if(lines[i].find(compareStr)!=std::string::npos)
+	    //std::cout << lines[i].size() << std::endl;
+	    //std::cout << lines[i] << std::endl;
+
+	    //std::cout << compareStr.size() << std::endl;
+	    //std::cout << compareStr << std::endl;
+	    if(lines[i].find(compareStr)!=std::string::npos && lines[i].size()==(compareStr.size()+1))
             {
-                found = true;
+		found = true;
                 i++;
                 while(lines[i].find(" Pareto")== std::string::npos)
                 {

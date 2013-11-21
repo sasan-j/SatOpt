@@ -45,6 +45,7 @@
 #include "../../lib/inc/Payload_100.h"
 #include "../../lib/inc/MyException.h"
 #include "../../lib/inc/ExactExtractor.h"
+//#include "../../lib/inc/SatOptEval.h"
 
 
 //for getExact
@@ -71,6 +72,9 @@ string resultDir = "result/";
 
 void calculateBounds(vector< vector< vector<SatOptObjectiveVector> > >);
 std::vector < std::vector<double> > frontNormalizerRef(const std::vector < SatOptObjectiveVector > & _set, std::vector < eoRealInterval > _bounds,SatOptObjectiveVector ref_point);
+
+
+
 
 
 // evaluation of objective functions
@@ -210,7 +214,6 @@ private:
         }
     }
 };
-
 
 RunResult runAlgo(ALGO algo, string runFileName, unsigned int SEED)
 {

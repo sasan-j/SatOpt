@@ -166,13 +166,13 @@ vector<RunResult> runJob(ALGO algo, int chCount, int swInst, int chInst,unsigned
     std::chrono::duration<double> elapsed_seconds = end-start;
     std::time_t end_time = std::chrono::system_clock::to_time_t(end);
 
-    result.elapsedTime = elapsed_seconds.count();
+    result.setElapsedTime(elapsed_seconds.count());
 
 
     file.open(resultDir+runFileName, ios::app);
     if (file.is_open())
     {
-	file << "DONE after " << result.genCount << " generations." << endl;
+	file << "DONE after " << result.getGenCount() << " generations." << endl;
 	file << "Finished computation at " << std::ctime(&end_time)
 	    << "elapsed time: " << elapsed_seconds.count() << "s" << endl;
 	file.close();
@@ -335,7 +335,7 @@ public:
     ///////////////////////////////////////////////////
     for(int i=0; i<4; i++)
     {
-	vector<RunResult> results=fullResults[i];
+	vector<RunResult> results=this->fullResults[i];
 	vector< vector<SatOptObjectiveVector> >resultsObjVectors;
 	//This piece of code extracts objective vectors from archives and put all of them into new vector
 	for(unsigned int i=0; i<results.size(); i++)
@@ -347,7 +347,7 @@ public:
 	    }
 	    resultsObjVectors.push_back(resultObjVectors);
 	}
-	resultsObjVectorsVect.push_back(resultsObjVectors);
+	this->resultsObjVectorsVect.push_back(resultsObjVectors);
     }
     //////////////////////////////////////////////////////  
   }
@@ -360,7 +360,7 @@ public:
 	    //cout << i << endl;
 
 	    vector< vector<SatOptObjectiveVector> >resultsObjVectors;
-	    resultsObjVectors = resultsObjVectorsVect[i];
+	    resultsObjVectors = this->resultsObjVectorsVect[i];
 	    for(unsigned int j=0; j<resultsObjVectors.size(); j++)
 	    {
 		vector<SatOptObjectiveVector> resultObjVector=resultsObjVectors[j];
@@ -446,7 +446,8 @@ public:
 	    }
 	}
 	//cout << "HyperVolume: " << hyperVolumeMetricUnary(optimalFrontObjVector) << endl;
-	trueFrontUnaryHV=hyperVolumeMetricUnary(optimalFrontObjVector);
+	std::vector < std::vector<double> > currentFrontNorm=frontNormalizer(optimalFrontObjVector,bounds,refPoint);
+	trueFrontUnaryHV=hyperVolumeMetricUnary.calc_hypervolume(currentFrontNorm,currentFrontNorm.size(),2);
   }
   
   
@@ -561,15 +562,27 @@ public:
 
 	    for(unsigned int i=0; i<results.size(); i++)
 	    {
-		finalResFile << "runNumber " << i << endl;
-		finalResFile << "genCount " << results[i].genCount << endl;
-		finalResFile << "elapsedTime " << results[i].elapsedTime << endl;
-		finalResFile << "unaryHyperVol " << results[i].getUnaryHyperVol() << endl;
-		finalResFile << "binaryHyperVol " << results[i].getBinaryHyperVol() << endl;
-		finalResFile << "additiveEps " << results[i].getAdditiveEps() << endl;
-		finalResFile << "entropy " << results[i].getEntropy() << endl;
-		finalResFile << "archive " << i << endl;
+		finalResFile << "runNumber " 		<< i << endl;
+		finalResFile << "genCount " 		<< results[i].getGenCount() << endl;
+		finalResFile << "elapsedTime " 		<< results[i].getElapsedTime() << endl;
+	        finalResFile << "unaryHyperVol " 	<< results[i].getUnaryHyperVol() << endl;
+		finalResFile << "binaryHyperVol " 	<< results[i].getBinaryHyperVol() << endl;
+		finalResFile << "additiveEps " 		<< results[i].getAdditiveEps() << endl;
+		finalResFile << "entropy " 		<< results[i].getEntropy() << endl;
+		finalResFile << "archive " 		<< i << endl;
 		results[i].finalArchive.sortedPrintOn(finalResFile);
+		
+		
+		
+		cout << "runNumber " 		<< i << endl;
+		cout << "genCount " 		<< results[i].getGenCount() << endl;
+		cout << "elapsedTime " 		<< results[i].getElapsedTime() << endl;
+		cout << "unaryHyperVol " 		<< results[i].getUnaryHyperVol() << endl;
+		cout << "binaryHyperVol " 	<< results[i].getBinaryHyperVol() << endl;
+		cout << "additiveEps " 		<< results[i].getAdditiveEps() << endl;
+		cout << "entropy " 		<< results[i].getEntropy() << endl;
+		cout << "archive " 		<< i << endl;
+		results[i].finalArchive.sortedPrintOn(cout);
 	    }
 	    finalResFile.close();
 	}
@@ -589,8 +602,20 @@ public:
 	    for(unsigned int i=0; i<results.size(); i++)
 	    {
 		finalResCSVFile << i << ","
-				<< results[i].genCount << ","
-				<< results[i].elapsedTime << ","
+				<< results[i].getGenCount() << ","
+				<< results[i].getElapsedTime() << ","
+				<< results[i].finalArchive.size() << ","
+				<< results[i].getUnaryHyperVol() << ","
+				<< results[i].getBinaryHyperVol() << ","
+				<< results[i].getAdditiveEps() << ","
+				<< results[i].getEntropy() << "\r\n";
+				
+				
+				
+				
+		cout << i << ","
+				<< results[i].getGenCount() << ","
+				<< results[i].getElapsedTime() << ","
 				<< results[i].finalArchive.size() << ","
 				<< results[i].getUnaryHyperVol() << ","
 				<< results[i].getBinaryHyperVol() << ","
@@ -620,27 +645,24 @@ public:
     for(int l=0; l<4; l++)
     {
       cout << "start of loop\n";
-	vector<RunResult> results=fullResults[l];
+	vector<RunResult> results=this->fullResults[l];
 	vector< vector<SatOptObjectiveVector> >resultsObjVectors;
-	resultsObjVectors = resultsObjVectorsVect[l];
+	resultsObjVectors = this->resultsObjVectorsVect[l];
 	      cout << "before unary\n";
 
 	calculateUnaryHV(results, resultsObjVectors);
 		      cout << "before diff\n";
 
 	calculateBinaryDiffHV(results, resultsObjVectors);
-		      cout << "before eps\n";
+	//	      cout << "before eps\n";
 
 	calculateBinaryAdditiveEpsilon(results, resultsObjVectors);
-		      cout << "before entropy\n";
+	//	      cout << "before entropy\n";
 
 	calculateBinaryEntropy(results, resultsObjVectors);
-		      cout << "before write txt\n";
-
-	writeResultsToTxt(results,l);
-		      cout << "before write csv\n";
-
 	writeResultsToCSV(results,l);
+	writeResultsToTxt(results,l);
+
     }
     
   }

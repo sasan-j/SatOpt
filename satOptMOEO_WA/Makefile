@@ -1,10 +1,18 @@
 # if you use this Makefile as a starting point for another application
 # you might need to modify the following
-DIR_EO = ../ParadisEO-2.0/eo/src
-DIR_MO = ../ParadisEO-2.0/mo/src
-DIR_MOEO = ../ParadisEO-2.0/moeo/src
-DIR_LIB_EO = ../ParadisEO-2.0/build/eo/lib
-DIR_LIB_MOEO =../ParadisEO-2.0/build/moeo/lib
+#DIR_EO = ../ParadisEO-2.0/eo/src
+#DIR_MO = ../ParadisEO-2.0/mo/src
+#DIR_MOEO = ../ParadisEO-2.0/moeo/src
+#DIR_LIB_EO = ../ParadisEO-2.0/build/eo/lib
+#DIR_LIB_MOEO =../ParadisEO-2.0/build/moeo/lib
+GCC_BUILD = build
+ICC_BUILD = build_icc
+
+DIR_EO = ../paradiseo/eo/src
+DIR_MO = ../paradiseo/mo/src
+DIR_MOEO = ../paradiseo/moeo/src
+DIR_LIB_EO = ../paradiseo/$(GCC_BUILD)/eo/lib
+DIR_LIB_MOEO =../paradiseo/$(GCC_BUILD)/moeo/lib
 
 # Link Libraries and Options
 LDLIBSOPTIONS=  $(DIR_LIB_EO)/libeo.a  $(DIR_LIB_EO)/libcma.a $(DIR_LIB_EO)/libeoutils.a $(DIR_LIB_EO)/libes.a $(DIR_LIB_EO)/libga.a $(DIR_LIB_MOEO)/libmoeo.a

@@ -11,8 +11,8 @@ ICC_BUILD = build_icc
 DIR_EO = ../paradiseo/eo/src
 DIR_MO = ../paradiseo/mo/src
 DIR_MOEO = ../paradiseo/moeo/src
-DIR_LIB_EO = ../paradiseo/$(GCC_BUILD)/eo/lib
-DIR_LIB_MOEO =../paradiseo/$(GCC_BUILD)/moeo/lib
+DIR_LIB_EO = ../paradiseo/$(GCC_BUILD)/lib
+DIR_LIB_MOEO =../paradiseo/$(GCC_BUILD)/lib
 
 # Link Libraries and Options
 LDLIBSOPTIONS=  $(DIR_LIB_EO)/libeo.a  $(DIR_LIB_EO)/libcma.a $(DIR_LIB_EO)/libeoutils.a $(DIR_LIB_EO)/libes.a $(DIR_LIB_EO)/libga.a $(DIR_LIB_MOEO)/libmoeo.a

@@ -14,8 +14,7 @@
 
 class RunResult {
 public:
-    double elapsedTime;
-    unsigned int genCount;
+
     moeoUnboundedArchive<SatOpt> finalArchive;
     std::string resultFileName;
 
@@ -27,6 +26,10 @@ public:
     void incGenCount();
 
     void setElapsedTime(double _elapsed);
+    double getElapsedTime();
+    
+    void setGenCount(unsigned int);
+    unsigned int getGenCount();
 
     double getUnaryHyperVol();
     void setUnaryHyperVol(double);
@@ -40,6 +43,8 @@ public:
     double getEntropy();
     void setEntropy(double);
 private:
+    double elapsedTime;
+    unsigned int genCount;
     double unaryHyperVol;
     double binaryHyperVol;//diff with optimal
     double additiveEps;

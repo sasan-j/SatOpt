@@ -58,7 +58,7 @@ private:
 	    if (file.is_open())
 	    {
 		//now current archive should flush into result file
-		file << "genCount " << this->currentResult->genCount << endl;
+		file << "genCount " << this->currentResult->getGenCount() << endl;
 		arch(tempArch);
 		//cout should change to the file output stream
 		arch.sortedPrintOn(file);

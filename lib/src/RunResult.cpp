@@ -41,6 +41,17 @@ void RunResult::setElapsedTime(double _elapsed) {
     this->elapsedTime = _elapsed;
 }
 
+    double RunResult::getElapsedTime(){
+      return this->elapsedTime;
+    }
+    
+    void RunResult::setGenCount(unsigned int _genCount){
+      this->genCount = _genCount;
+    }
+    unsigned int RunResult::getGenCount(){
+      return this->genCount;
+    }
+
     double RunResult::getUnaryHyperVol(){
         return this->unaryHyperVol;
     }

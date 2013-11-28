@@ -6,13 +6,15 @@
 #DIR_LIB_EO = ../ParadisEO-2.0/build/eo/lib
 #DIR_LIB_MOEO =../ParadisEO-2.0/build/moeo/lib
 GCC_BUILD = build
-ICC_BUILD = build_icc
+ICC_BUILD = build_intel
 
 DIR_EO = ../paradiseo/eo/src
 DIR_MO = ../paradiseo/mo/src
 DIR_MOEO = ../paradiseo/moeo/src
 DIR_LIB_EO = ../paradiseo/$(GCC_BUILD)/lib
 DIR_LIB_MOEO =../paradiseo/$(GCC_BUILD)/lib
+#DIR_LIB_EO = ../paradiseo/$(ICC_BUILD)/lib
+#DIR_LIB_MOEO =../paradiseo/$(ICC_BUILD)/lib
 
 # Link Libraries and Options
 LDLIBSOPTIONS=  $(DIR_LIB_EO)/libeo.a  $(DIR_LIB_EO)/libcma.a $(DIR_LIB_EO)/libeoutils.a $(DIR_LIB_EO)/libes.a $(DIR_LIB_EO)/libga.a $(DIR_LIB_MOEO)/libmoeo.a
@@ -27,7 +29,10 @@ CCADMIN=CCadmin
 RANLIB=ranlib
 CC=gcc
 CCC=g++
+#GCC
 CXX=g++
+#Intel
+#CXX = icc
 FC=gfortran
 AS=as
 
@@ -64,8 +69,6 @@ CXXOBJECTS = ${OBJECTDIR}/Payload.o ${OBJECTDIR}/Payload_100.o ${OBJECTDIR}/Node
 #$(CXXSOURCES:.cpp=.o)  # expands to list of object files
 # was -O3 
 CXXFLAGS = -DESRI_UNIX -m64 -g -O0 -std=c++11 $(INCLUDEDIRS) 
-CXX = g++
-#CXX = icc
 LDFLAGS = $(LIBDIRS) $(LIBS)
 
 #

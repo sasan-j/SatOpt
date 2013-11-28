@@ -36,7 +36,7 @@ private:
 	double trueFrontUnaryHV;
 
 	vector<RunResult> runJob(ALGO algo, int chCount, int swInst, int chInst,unsigned int numRuns)
-		{
+				{
 		vector<RunResult> results;
 
 		//creates results directory
@@ -51,7 +51,7 @@ private:
 			SEED++;
 		}
 		return results;
-		}
+				}
 
 	RunResult runAlgo(ALGO algo, string runFileName, unsigned int SEED)
 	{
@@ -203,7 +203,7 @@ private:
 	}
 
 	std::vector < std::vector<double> > frontNormalizer(const std::vector < SatOptObjectiveVector > & _set, std::vector < eoRealInterval > _bounds ,SatOptObjectiveVector ref_point)
-    		{
+    				{
 		std::vector < std::vector<double> > front;
 		front.resize(_set.size());
 		for(unsigned int i=0; i < _set.size(); i++)
@@ -227,10 +227,10 @@ private:
 			//cout << endl;
 		}
 		return front;
-    		}
+    				}
 
 	std::vector < std::vector<double> > frontNormalizerRef(const std::vector < SatOptObjectiveVector > & _set, std::vector < eoRealInterval > _bounds,SatOptObjectiveVector ref_point)
-		{
+				{
 		std::vector < std::vector<double> > front;
 		front.resize(_set.size());
 		for(unsigned int i=0; i < _set.size(); i++)
@@ -252,7 +252,7 @@ private:
 			//cout << endl;
 		}
 		return front;
-		}
+				}
 
 
 public:
@@ -440,32 +440,35 @@ public:
 		////////////////////////////////////////////////////////
 	}
 
-	void calculateUnaryHV(vector<RunResult> results, vector< vector<SatOptObjectiveVector> >resultsObjVectors)
+	void calculateUnaryHV( vector<RunResult> *results, vector< vector<SatOptObjectiveVector> >*resultsObjVectors)
 	{
 		moeoHyperVolumeMetric < SatOptObjectiveVector > hyperVolumeMetricUnary(false,refPoint);
+
+
+
 		std::vector<RunResult>::iterator ResultIterator;
 		int i=0;
-		for (ResultIterator = results.begin();
-			ResultIterator != results.end();ResultIterator++ )
+		for (ResultIterator = results->begin();
+				ResultIterator != results->end();ResultIterator++ )
 		{
 
 			//hyperVolDiff.setup(optimalFrontObjVector,resultsObjVectors[i]);
 			//cout << "HyperVolume: " << hyperVolumeMetricUnary(resultsObjVectors[i]) << endl;
 			try
 			{
-
-				std::vector < std::vector<double> > currentFrontNorm=frontNormalizer(resultsObjVectors[i],bounds,refPoint);
+				std::vector < std::vector<double> > currentFrontNorm=frontNormalizer((*resultsObjVectors)[i],bounds,refPoint);
 				//cout << "unary HV: " << hyperVolumeMetricUnary.calc_hypervolume(currentFrontNorm,currentFrontNorm.size(),2) << endl;
 				double unaryHV = hyperVolumeMetricUnary.calc_hypervolume(currentFrontNorm,currentFrontNorm.size(),2);
-				cout << "unaryHV: " << unaryHV << endl;
+				//cout << "unaryHV: " << unaryHV << endl;
 				(*ResultIterator).setUnaryHyperVol(unaryHV);
+				//cout << "unaryHV: " << (*ResultIterator).getUnaryHyperVol() << endl;
 			}
 			catch (exception& e)
 			{
 				cout << "unary hypervolume error is: " << e.what()  << endl;
 				(*ResultIterator).setUnaryHyperVol(333);
 			}
-		i++;
+			i++;
 		}
 		//cout << "HyperVolume: " << hyperVolumeMetricUnary(optimalFrontObjVector) << endl;
 		std::vector < std::vector<double> > currentFrontNorm=frontNormalizer(optimalFrontObjVector,bounds,refPoint);
@@ -473,40 +476,40 @@ public:
 	}
 
 
-	void calculateBinaryDiffHV(vector<RunResult> results, vector< vector<SatOptObjectiveVector> >resultsObjVectors){
+	void calculateBinaryDiffHV(vector<RunResult> *results, vector< vector<SatOptObjectiveVector> >*resultsObjVectors){
 		moeoHyperVolumeDifferenceMetric <SatOptObjectiveVector>hyperVolDiff(true, refFront);
 		//moeoHypervolumeBinaryMetric <SatOptObjectiveVector>hyperVolBinary(1.1);
 		//cout << "\nBinary Hyper volume is:" << endl;
 		//This loop calculates and print the hyperVolumeDiff
-		for(unsigned int i=0; i<results.size(); i++)
+		for(unsigned int i=0; i<results->size(); i++)
 		{
 			if(optimalFrontObjVector.size() > 0 && resultsObjVectors[i].size() > 0)
 			{
 				//cout << "hyperDiff: " << hyperVolDiff(optimalFrontObjVector,resultsObjVectors[i]) << endl;
 				try
 				{
-					double binaryHV=hyperVolDiff(optimalFrontObjVector,resultsObjVectors[i]);
-					results[i].setBinaryHyperVol(binaryHV);
-					cout << "binaryHV: " << binaryHV << endl;
+					double binaryHV=hyperVolDiff(optimalFrontObjVector,(*resultsObjVectors)[i]);
+					(*results)[i].setBinaryHyperVol(binaryHV);
+					//cout << "binaryHV: " << binaryHV << endl;
 
 					//results[i].setBinaryHyperVol(hyperVolBinary(optimalFrontObjVector,optimalFrontObjVector));
 				}
 				catch (exception& e)
 				{
 					cout << "error is: " << e.what()  << endl;
-					results[i].setBinaryHyperVol(333);
+					(*results)[i].setBinaryHyperVol(333);
 				}
 
 			}
-			else results[i].setBinaryHyperVol(333);
+			else (*results)[i].setBinaryHyperVol(333);
 		}
 	}
 
-	void calculateBinaryAdditiveEpsilon(vector<RunResult> results, vector< vector<SatOptObjectiveVector> >resultsObjVectors){
+	void calculateBinaryAdditiveEpsilon(vector<RunResult> *results, vector< vector<SatOptObjectiveVector> >*resultsObjVectors){
 
 		moeoVecVsVecAdditiveEpsilonBinaryMetric < SatOptObjectiveVector > additiveEpsilon(true);
 		//This loop calculates and print the AdditiveEpsilonBinaryMetric
-		for(unsigned int i=0; i<results.size(); i++)
+		for(unsigned int i=0; i<results->size(); i++)
 		{
 
 			if(optimalFrontObjVector.size() > 0 && resultsObjVectors[i].size() > 0)
@@ -516,29 +519,27 @@ public:
 				try
 				{
 
-					double epsilon=additiveEpsilon(resultsObjVectors[i],optimalFrontObjVector);
-					results[i].setAdditiveEps(epsilon);
-					cout << "epsilon: " << epsilon << endl;
+					double epsilon=additiveEpsilon((*resultsObjVectors)[i],optimalFrontObjVector);
+					(*results)[i].setAdditiveEps(epsilon);
+					//cout << "epsilon: " << epsilon << endl;
 
 				}
 				catch (exception& e)
 				{
 					cout << "error is: " << e.what()  << endl;
-					results[i].setAdditiveEps(333);
+					(*results)[i].setAdditiveEps(333);
 				}
 			}
-			else results[i].setAdditiveEps(333);
+			else (*results)[i].setAdditiveEps(333);
 		}
 
 	}
 
-	void calculateBinaryEntropy(vector<RunResult> results, vector< vector<SatOptObjectiveVector> >resultsObjVectors){
+	void calculateBinaryEntropy(vector<RunResult> *results, vector< vector<SatOptObjectiveVector> >*resultsObjVectors){
 		//This loop calculates and print the entropyMetric
-		for(unsigned int i=0; i<results.size(); i++)
+		for(unsigned int i=0; i<results->size(); i++)
 		{
 			moeoEntropyMetric < SatOptObjectiveVector > entropyMetric;
-
-
 
 			if(optimalFrontObjVector.size() > 0 && resultsObjVectors[i].size() > 0)
 			{
@@ -546,25 +547,21 @@ public:
 
 				try
 				{
-					results[i].setEntropy(entropyMetric(resultsObjVectors[i],optimalFrontObjVector));
-					//if(i<(results.size()-2))
-					//cout << "entropyMetric: " << entropyMetric(resultsObjVectors[i],resultsObjVectors[i+1]) << endl;
-					//cout << "entropyMetric: " << entropyMetric(optimalFrontObjVector,resultsObjVectors[i]) << endl;
-
+					(*results)[i].setEntropy(entropyMetric((*resultsObjVectors)[i],optimalFrontObjVector));
 				}
 				catch (exception& e)
 				{
 					cout << "error is: " << e.what() << endl;
-					results[i].setEntropy(333);
+					(*results)[i].setEntropy(333);
 				}
 
 			}
-			else results[i].setEntropy(333);
+			else (*results)[i].setEntropy(333);
 
 		}
 	}
 
-	void writeResultsToTxt(vector<RunResult> results, int l){
+	void writeResultsToTxt(vector<RunResult> *results, int l){
 		sprintf(temp,"final_res_%d_%d_%d_%d.txt",chCount,l,swInst,chInst);//i stands for algo
 		string fResultFileName=temp;
 		remove((resultDir+fResultFileName).c_str());
@@ -598,8 +595,8 @@ public:
 
 			std::vector<RunResult>::iterator ResultIterator;
 			int i=0;
-			for (ResultIterator = results.begin();
-				ResultIterator != results.end();ResultIterator++ )
+			for (ResultIterator = results->begin();
+					ResultIterator != results->end();ResultIterator++ )
 			{
 				tmpGenCount=(*ResultIterator).getGenCount();
 				tmpElapsedTime=(*ResultIterator).getElapsedTime();
@@ -652,7 +649,7 @@ public:
 			std::vector<RunResult>::iterator ResultIterator;
 			int i=0;
 			for (ResultIterator = results.begin();
-				ResultIterator != results.end();ResultIterator++ )
+					ResultIterator != results.end();ResultIterator++ )
 			{
 				finalResCSVFile << i << ","
 						<< (*ResultIterator).getGenCount() << ","
@@ -672,7 +669,7 @@ public:
 						<< (*ResultIterator).getBinaryHyperVol() << ","
 						<< (*ResultIterator).getAdditiveEps() << ","
 						<< (*ResultIterator).getEntropy() << "\r\n";
-			i++;
+				i++;
 			}
 			try
 			{
@@ -693,27 +690,22 @@ public:
 	void calculateMetrics(void){
 
 
+		std::vector< std::vector< std::vector<SatOptObjectiveVector> > >::iterator resultsObjVectorsVectIterator;
+		std::vector< std::vector<RunResult> >::iterator fullResultsIterator;
 
-		for(int l=0; l<4; l++)
+		int l =0;
+		//iterator loop for algorithms
+		fullResultsIterator = this->fullResults.begin();
+		for(resultsObjVectorsVectIterator = this->resultsObjVectorsVect.begin();
+				resultsObjVectorsVectIterator != this->resultsObjVectorsVect.end();
+				resultsObjVectorsVectIterator++,fullResultsIterator++,l++)
 		{
-			cout << "start of loop\n";
-			vector<RunResult> results=this->fullResults[l];
-			vector< vector<SatOptObjectiveVector> >resultsObjVectors;
-			resultsObjVectors = this->resultsObjVectorsVect[l];
-			//cout << "before unary\n";
-
-			calculateUnaryHV(results, resultsObjVectors);
-			//cout << "before diff\n";
-
-			calculateBinaryDiffHV(results, resultsObjVectors);
-			//	      cout << "before eps\n";
-
-			calculateBinaryAdditiveEpsilon(results, resultsObjVectors);
-			//	      cout << "before entropy\n";
-
-			calculateBinaryEntropy(results, resultsObjVectors);
+			calculateUnaryHV(&(*fullResultsIterator), &(*resultsObjVectorsVectIterator));
+			calculateBinaryDiffHV(&(*fullResultsIterator), &(*resultsObjVectorsVectIterator));
+			calculateBinaryAdditiveEpsilon(&(*fullResultsIterator), &(*resultsObjVectorsVectIterator));
+			calculateBinaryEntropy(&(*fullResultsIterator), &(*resultsObjVectorsVectIterator));
 			writeResultsToCSV(l);
-			writeResultsToTxt(results,l);
+			writeResultsToTxt(&(*fullResultsIterator),l);
 		}
 
 	}

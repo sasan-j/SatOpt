@@ -42,7 +42,7 @@ public:
 
     double getEntropy();
     void setEntropy(double);
-private:
+//private:
     double elapsedTime;
     unsigned int genCount;
     double unaryHyperVol;

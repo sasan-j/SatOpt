@@ -8,21 +8,31 @@
 #include "../inc/RunResult.h"
 
 RunResult::RunResult() {
-    this->elapsedTime = 0;
+    this->elapsedTime = 0.0;
     this->genCount = 0;
+    this->unaryHyperVol = 0.0;
+    this->binaryHyperVol = 0.0;
+    this->additiveEps = 0.0;
+    this->entropy = 0.0;
 }
 
 RunResult::RunResult(const RunResult& orig) {
     this->elapsedTime = orig.elapsedTime;
     this->genCount = orig.genCount;
     this->finalArchive(orig.finalArchive);
-}
+    this->unaryHyperVol = orig.unaryHyperVol;
+    this->binaryHyperVol = orig.binaryHyperVol;
+    this->additiveEps = orig.additiveEps;
+    this->entropy = orig.entropy;}
 
 RunResult& RunResult:: operator=(const RunResult &_result) {
     this->elapsedTime = _result.elapsedTime;
     this->genCount = _result.genCount;
     this->finalArchive(_result.finalArchive);
-
+    this->unaryHyperVol = _result.unaryHyperVol;
+    this->binaryHyperVol = _result.binaryHyperVol;
+    this->additiveEps = _result.additiveEps;
+    this->entropy = _result.entropy;
     return *this;
 }
 

@@ -1,0 +1,782 @@
+  Pareto front found for 1_4 in time: 59.18   
+ (z = 2, changes = 7) 
+  Pareto front found for 1_6 in time: 3.84   
+ (z = 2, changes = 6)
+ (z = 1, changes = 8) 
+  Pareto front found for 1_9 in time: 32.46   
+ (z = 2, changes = 6) 
+  Pareto front found for 1_10 in time: 24.87   
+ (z = 2, changes = 6)
+ (z = 1, changes = 7) 
+  Pareto front found for 1_12 in time: 112.33   
+ (z = 4, changes = 6)
+ (z = 1, changes = 7) 
+  Pareto front found for 1_16 in time: 15.19   
+ (z = 1, changes = 8) 
+  Pareto front found for 1_22 in time: 62.99   
+ (z = 5, changes = 6)
+ (z = 1, changes = 7) 
+  Pareto front found for 1_28 in time: 1.48   
+ (z = 1, changes = 6) 
+  Pareto front found for 1_29 in time: 36.19   
+ (z = 2, changes = 8) 
+  Pareto front found for 2_4 in time: 36.81   
+ (z = 2, changes = 6) 
+  Pareto front found for 2_5 in time: 55.0   
+ (z = 3, changes = 4)
+ (z = 2, changes = 6) 
+  Pareto front found for 2_6 in time: 16.5   
+ (z = 1, changes = 5) 
+  Pareto front found for 2_7 in time: 57.34   
+ (z = 3, changes = 4)
+ (z = 2, changes = 5) 
+  Pareto front found for 2_9 in time: 1.75   
+ (z = 2, changes = 5) 
+  Pareto front found for 2_10 in time: 19.86   
+ (z = 1, changes = 6) 
+  Pareto front found for 2_11 in time: 15.4   
+ (z = 2, changes = 6) 
+  Pareto front found for 2_12 in time: 11.26   
+ (z = 3, changes = 4)
+ (z = 1, changes = 5) 
+  Pareto front found for 2_16 in time: 8.69   
+ (z = 1, changes = 7) 
+  Pareto front found for 2_19 in time: 35.08   
+ (z = 3, changes = 3)
+ (z = 2, changes = 5) 
+  Pareto front found for 2_22 in time: 16.76   
+ (z = 1, changes = 4) 
+  Pareto front found for 2_23 in time: 53.31   
+ (z = 2, changes = 6) 
+  Pareto front found for 2_26 in time: 43.61   
+ (z = 3, changes = 5)
+ (z = 2, changes = 6) 
+  Pareto front found for 2_27 in time: 8.68   
+ (z = 3, changes = 3)
+ (z = 2, changes = 4) 
+  Pareto front found for 2_28 in time: 2.73   
+ (z = 3, changes = 3)
+ (z = 1, changes = 4) 
+  Pareto front found for 3_6 in time: 0.99   
+ (z = 1, changes = 3) 
+  Pareto front found for 3_10 in time: 14.28   
+ (z = 1, changes = 6) 
+  Pareto front found for 3_11 in time: 19.21   
+ (z = 4, changes = 6)
+ (z = 2, changes = 7) 
+  Pareto front found for 3_12 in time: 1.5   
+ (z = 1, changes = 6) 
+  Pareto front found for 3_16 in time: 1.02   
+ (z = 1, changes = 4) 
+  Pareto front found for 3_22 in time: 2.51   
+ (z = 1, changes = 6) 
+  Pareto front found for 3_23 in time: 2.26   
+ (z = 2, changes = 5) 
+  Pareto front found for 3_28 in time: 11.61   
+ (z = 1, changes = 6) 
+  Pareto front found for 4_6 in time: 55.84   
+ (z = 6, changes = 5)
+ (z = 1, changes = 6) 
+  Pareto front found for 4_8 in time: 58.05   
+ (z = 2, changes = 8) 
+  Pareto front found for 4_10 in time: 111.88   
+ (z = 6, changes = 5)
+ (z = 1, changes = 6) 
+  Pareto front found for 4_12 in time: 21.3   
+ (z = 1, changes = 6) 
+  Pareto front found for 4_13 in time: 56.9   
+ (z = 3, changes = 6)
+ (z = 2, changes = 8) 
+  Pareto front found for 4_15 in time: 36.85   
+ (z = 2, changes = 7) 
+  Pareto front found for 4_16 in time: 537.91   
+ (z = 4, changes = 5)
+ (z = 1, changes = 6) 
+  Pareto front found for 4_22 in time: 13.94   
+ (z = 1, changes = 7) 
+  Pareto front found for 4_28 in time: 1.65   
+ (z = 1, changes = 4) 
+  Pareto front found for 4_29 in time: 283.67   
+ (z = 4, changes = 6)
+ (z = 2, changes = 7) 
+  Pareto front found for 5_0 in time: 33.58   
+ (z = 3, changes = 6) 
+  Pareto front found for 5_1 in time: 43.55   
+ (z = 3, changes = 4)
+ (z = 2, changes = 6) 
+  Pareto front found for 5_3 in time: 117.57   
+ (z = 3, changes = 6)
+ (z = 2, changes = 7) 
+  Pareto front found for 5_6 in time: 12.63   
+ (z = 1, changes = 7) 
+  Pareto front found for 5_9 in time: 27.43   
+ (z = 2, changes = 7) 
+  Pareto front found for 5_10 in time: 10.1   
+ (z = 1, changes = 6) 
+  Pareto front found for 5_14 in time: 97.89   
+ (z = 3, changes = 5)
+ (z = 2, changes = 6) 
+  Pareto front found for 5_16 in time: 91.21   
+ (z = 3, changes = 4)
+ (z = 2, changes = 5)
+ (z = 1, changes = 6) 
+  Pareto front found for 5_19 in time: 34.01   
+ (z = 3, changes = 5)
+ (z = 2, changes = 6) 
+  Pareto front found for 5_20 in time: 153.28   
+ (z = 3, changes = 7)
+ (z = 2, changes = 8) 
+  Pareto front found for 5_21 in time: 31.15   
+ (z = 2, changes = 4) 
+  Pareto front found for 5_22 in time: 6.65   
+ (z = 1, changes = 5) 
+  Pareto front found for 5_28 in time: 16.13   
+ (z = 1, changes = 6) 
+  Pareto front found for 6_10 in time: 344.46   
+ (z = 4, changes = 7)
+ (z = 1, changes = 8) 
+  Pareto front found for 6_12 in time: 16.76   
+ (z = 1, changes = 5) 
+  Pareto front found for 6_22 in time: 227.64   
+ (z = 5, changes = 6)
+ (z = 1, changes = 7) 
+  Pareto front found for 6_26 in time: 181.85   
+ (z = 3, changes = 7)
+ (z = 2, changes = 8) 
+  Pareto front found for 6_28 in time: 68.35   
+ (z = 6, changes = 6)
+ (z = 1, changes = 7) 
+  Pareto front found for 7_6 in time: 47.57   
+ (z = 6, changes = 3)
+ (z = 4, changes = 4)
+ (z = 1, changes = 5) 
+  Pareto front found for 7_7 in time: 31.6   
+ (z = 2, changes = 6) 
+  Pareto front found for 7_10 in time: 112.3   
+ (z = 6, changes = 3)
+ (z = 4, changes = 5)
+ (z = 1, changes = 7) 
+  Pareto front found for 7_11 in time: 23.62   
+ (z = 3, changes = 4)
+ (z = 2, changes = 5) 
+  Pareto front found for 7_12 in time: 20.19   
+ (z = 1, changes = 6) 
+  Pareto front found for 7_16 in time: 106.73   
+ (z = 6, changes = 5)
+ (z = 4, changes = 6)
+ (z = 1, changes = 7) 
+  Pareto front found for 7_22 in time: 27.85   
+ (z = 6, changes = 4)
+ (z = 4, changes = 5)
+ (z = 1, changes = 6) 
+  Pareto front found for 7_26 in time: 2.96   
+ (z = 2, changes = 6) 
+  Pareto front found for 7_27 in time: 5.36   
+ (z = 2, changes = 5) 
+  Pareto front found for 7_28 in time: 16.52   
+ (z = 4, changes = 3)
+ (z = 1, changes = 4) 
+  Pareto front found for 8_5 in time: 58.29   
+ (z = 3, changes = 6)
+ (z = 2, changes = 7) 
+  Pareto front found for 8_6 in time: 22.92   
+ (z = 1, changes = 6) 
+  Pareto front found for 8_9 in time: 17.27   
+ (z = 2, changes = 6) 
+  Pareto front found for 8_10 in time: 10.32   
+ (z = 1, changes = 6) 
+  Pareto front found for 8_12 in time: 18.33   
+ (z = 1, changes = 6) 
+  Pareto front found for 8_16 in time: 2.32   
+ (z = 1, changes = 5) 
+  Pareto front found for 8_28 in time: 18.28   
+ (z = 1, changes = 5) 
+  Pareto front found for 8_29 in time: 100.2   
+ (z = 3, changes = 6)
+ (z = 2, changes = 7) 
+  Pareto front found for 9_6 in time: 4.2   
+ (z = 2, changes = 5)
+ (z = 1, changes = 6) 
+  Pareto front found for 9_7 in time: 35.48   
+ (z = 3, changes = 5)
+ (z = 2, changes = 7) 
+  Pareto front found for 9_9 in time: 33.07   
+ (z = 2, changes = 8) 
+  Pareto front found for 9_10 in time: 9.68   
+ (z = 1, changes = 4) 
+  Pareto front found for 9_12 in time: 41.21   
+ (z = 2, changes = 6)
+ (z = 1, changes = 7) 
+  Pareto front found for 9_13 in time: 49.43   
+ (z = 2, changes = 8) 
+  Pareto front found for 9_16 in time: 26.04   
+ (z = 1, changes = 6) 
+  Pareto front found for 9_20 in time: 159.42   
+ (z = 3, changes = 7)
+ (z = 2, changes = 9) 
+  Pareto front found for 9_22 in time: 2.38   
+ (z = 2, changes = 4)
+ (z = 1, changes = 5) 
+  Pareto front found for 9_23 in time: 37.5   
+ (z = 2, changes = 7) 
+  Pareto front found for 9_25 in time: 80.76   
+ (z = 2, changes = 8) 
+  Pareto front found for 9_26 in time: 57.46   
+ (z = 3, changes = 4)
+ (z = 2, changes = 6) 
+  Pareto front found for 9_28 in time: 32.64   
+ (z = 2, changes = 5)
+ (z = 1, changes = 6) 
+  Pareto front found for 10_6 in time: 12.55   
+ (z = 1, changes = 7) 
+  Pareto front found for 10_9 in time: 42.41   
+ (z = 2, changes = 5) 
+  Pareto front found for 10_10 in time: 177.71   
+ (z = 4, changes = 5)
+ (z = 1, changes = 6) 
+  Pareto front found for 10_12 in time: 5.0   
+ (z = 1, changes = 5) 
+  Pareto front found for 10_16 in time: 30.47   
+ (z = 1, changes = 7) 
+  Pareto front found for 10_19 in time: 89.43   
+ (z = 2, changes = 7) 
+  Pareto front found for 10_22 in time: 50.81   
+ (z = 5, changes = 5)
+ (z = 1, changes = 6) 
+  Pareto front found for 10_23 in time: 10.85   
+ (z = 2, changes = 5) 
+  Pareto front found for 10_26 in time: 25.23   
+ (z = 3, changes = 4)
+ (z = 2, changes = 5) 
+  Pareto front found for 10_28 in time: 32.76   
+ (z = 2, changes = 6)
+ (z = 1, changes = 7) 
+  Pareto front found for 10_29 in time: 41.58   
+ (z = 3, changes = 4)
+ (z = 2, changes = 5) 
+  Pareto front found for 11_6 in time: 11.66   
+ (z = 1, changes = 6) 
+  Pareto front found for 11_11 in time: 14.59   
+ (z = 2, changes = 7) 
+  Pareto front found for 11_12 in time: 1.54   
+ (z = 1, changes = 4) 
+  Pareto front found for 11_16 in time: 7.17   
+ (z = 1, changes = 7) 
+  Pareto front found for 11_22 in time: 13.8   
+ (z = 1, changes = 7) 
+  Pareto front found for 11_26 in time: 13.1   
+ (z = 2, changes = 6) 
+  Pareto front found for 11_27 in time: 1.99   
+ (z = 2, changes = 4) 
+  Pareto front found for 11_28 in time: 18.41   
+ (z = 1, changes = 5) 
+  Pareto front found for 12_0 in time: 124.55   
+ (z = 3, changes = 8) 
+  Pareto front found for 12_4 in time: 31.05   
+ (z = 5, changes = 4)
+ (z = 2, changes = 5) 
+  Pareto front found for 12_6 in time: 17.73   
+ (z = 5, changes = 5)
+ (z = 1, changes = 6) 
+  Pareto front found for 12_8 in time: 27.81   
+ (z = 2, changes = 6) 
+  Pareto front found for 12_9 in time: 42.01   
+ (z = 2, changes = 7) 
+  Pareto front found for 12_10 in time: 14.15   
+ (z = 1, changes = 7) 
+  Pareto front found for 12_12 in time: 14.5   
+ (z = 1, changes = 6) 
+  Pareto front found for 12_15 in time: 176.26   
+ (z = 5, changes = 7)
+ (z = 2, changes = 8) 
+  Pareto front found for 12_16 in time: 25.75   
+ (z = 5, changes = 3)
+ (z = 1, changes = 4) 
+  Pareto front found for 12_22 in time: 17.39   
+ (z = 1, changes = 7) 
+  Pareto front found for 12_23 in time: 6.94   
+ (z = 2, changes = 5) 
+  Pareto front found for 12_25 in time: 30.48   
+ (z = 2, changes = 6) 
+  Pareto front found for 12_28 in time: 15.37   
+ (z = 1, changes = 7) 
+  Pareto front found for 12_29 in time: 26.58   
+ (z = 2, changes = 6) 
+  Pareto front found for 13_0 in time: 63.73   
+ (z = 3, changes = 6) 
+  Pareto front found for 13_1 in time: 52.85   
+ (z = 2, changes = 6) 
+  Pareto front found for 13_3 in time: 93.92   
+ (z = 3, changes = 6)
+ (z = 2, changes = 8) 
+  Pareto front found for 13_6 in time: 56.72   
+ (z = 6, changes = 6)
+ (z = 2, changes = 7)
+ (z = 1, changes = 8) 
+  Pareto front found for 13_7 in time: 25.3   
+ (z = 3, changes = 4)
+ (z = 2, changes = 6) 
+  Pareto front found for 13_10 in time: 91.91   
+ (z = 6, changes = 6)
+ (z = 1, changes = 7) 
+  Pareto front found for 13_12 in time: 22.89   
+ (z = 6, changes = 6)
+ (z = 1, changes = 7) 
+  Pareto front found for 13_14 in time: 9.35   
+ (z = 2, changes = 5) 
+  Pareto front found for 13_19 in time: 5.51   
+ (z = 2, changes = 6) 
+  Pareto front found for 13_20 in time: 95.89   
+ (z = 3, changes = 6)
+ (z = 2, changes = 8) 
+  Pareto front found for 13_21 in time: 21.26   
+ (z = 2, changes = 6) 
+  Pareto front found for 13_22 in time: 36.9   
+ (z = 2, changes = 6)
+ (z = 1, changes = 7) 
+  Pareto front found for 13_26 in time: 55.7   
+ (z = 6, changes = 3)
+ (z = 3, changes = 4)
+ (z = 2, changes = 6) 
+  Pareto front found for 13_28 in time: 30.23   
+ (z = 6, changes = 6)
+ (z = 1, changes = 7) 
+  Pareto front found for 14_4 in time: 37.56   
+ (z = 4, changes = 7)
+ (z = 2, changes = 9) 
+  Pareto front found for 14_5 in time: 43.86   
+ (z = 2, changes = 8) 
+  Pareto front found for 14_6 in time: 2.32   
+ (z = 1, changes = 6) 
+  Pareto front found for 14_8 in time: 35.51   
+ (z = 2, changes = 7) 
+  Pareto front found for 14_9 in time: 112.56   
+ (z = 4, changes = 6)
+ (z = 2, changes = 7) 
+  Pareto front found for 14_10 in time: 17.72   
+ (z = 1, changes = 6) 
+  Pareto front found for 14_11 in time: 142.11   
+ (z = 4, changes = 4)
+ (z = 2, changes = 7) 
+  Pareto front found for 14_12 in time: 9.23   
+ (z = 1, changes = 6) 
+  Pareto front found for 14_16 in time: 12.28   
+ (z = 1, changes = 6) 
+  Pareto front found for 14_19 in time: 25.68   
+ (z = 2, changes = 7) 
+  Pareto front found for 14_22 in time: 17.24   
+ (z = 1, changes = 6) 
+  Pareto front found for 14_23 in time: 63.16   
+ (z = 4, changes = 6)
+ (z = 2, changes = 8) 
+  Pareto front found for 14_27 in time: 82.87   
+ (z = 4, changes = 7)
+ (z = 2, changes = 8) 
+  Pareto front found for 14_28 in time: 19.09   
+ (z = 1, changes = 4) 
+  Pareto front found for 15_4 in time: 84.55   
+ (z = 2, changes = 8) 
+  Pareto front found for 15_6 in time: 49.22   
+ (z = 5, changes = 5)
+ (z = 2, changes = 6)
+ (z = 1, changes = 7) 
+  Pareto front found for 15_12 in time: 16.34   
+ (z = 1, changes = 6) 
+  Pareto front found for 15_16 in time: 24.96   
+ (z = 5, changes = 2)
+ (z = 2, changes = 3)
+ (z = 1, changes = 4) 
+  Pareto front found for 15_22 in time: 20.18   
+ (z = 2, changes = 5)
+ (z = 1, changes = 6) 
+  Pareto front found for 15_28 in time: 14.06   
+ (z = 1, changes = 6) 
+  Pareto front found for 16_5 in time: 40.89   
+ (z = 2, changes = 8) 
+  Pareto front found for 16_6 in time: 23.26   
+ (z = 5, changes = 4)
+ (z = 2, changes = 5)
+ (z = 1, changes = 6) 
+  Pareto front found for 16_9 in time: 82.11   
+ (z = 4, changes = 5)
+ (z = 2, changes = 7) 
+  Pareto front found for 16_10 in time: 10.28   
+ (z = 2, changes = 5)
+ (z = 1, changes = 6) 
+  Pareto front found for 16_12 in time: 55.36   
+ (z = 4, changes = 5)
+ (z = 1, changes = 7) 
+  Pareto front found for 16_16 in time: 4.61   
+ (z = 1, changes = 6) 
+  Pareto front found for 16_18 in time: 159.01   
+ (z = 4, changes = 6)
+ (z = 2, changes = 7) 
+  Pareto front found for 16_22 in time: 35.65   
+ (z = 8, changes = 3)
+ (z = 4, changes = 4)
+ (z = 1, changes = 5) 
+  Pareto front found for 16_28 in time: 36.34   
+ (z = 4, changes = 6)
+ (z = 1, changes = 7) 
+  Pareto front found for 16_29 in time: 35.65   
+ (z = 2, changes = 7) 
+  Pareto front found for 17_3 in time: 20.07   
+ (z = 2, changes = 3) 
+  Pareto front found for 17_6 in time: 9.4   
+ (z = 1, changes = 3) 
+  Pareto front found for 17_10 in time: 12.51   
+ (z = 1, changes = 5) 
+  Pareto front found for 17_12 in time: 43.91   
+ (z = 5, changes = 5)
+ (z = 1, changes = 6) 
+  Pareto front found for 17_16 in time: 72.02   
+ (z = 3, changes = 5)
+ (z = 1, changes = 6) 
+  Pareto front found for 17_19 in time: 166.83   
+ (z = 5, changes = 6)
+ (z = 2, changes = 7) 
+  Pareto front found for 17_20 in time: 35.73   
+ (z = 2, changes = 5) 
+  Pareto front found for 17_22 in time: 63.26   
+ (z = 5, changes = 6)
+ (z = 1, changes = 7) 
+  Pareto front found for 17_23 in time: 36.98   
+ (z = 2, changes = 6) 
+  Pareto front found for 17_26 in time: 8.38   
+ (z = 2, changes = 3) 
+  Pareto front found for 17_28 in time: 7.95   
+ (z = 5, changes = 2)
+ (z = 2, changes = 3)
+ (z = 1, changes = 4) 
+  Pareto front found for 18_1 in time: 47.08   
+ (z = 2, changes = 7) 
+  Pareto front found for 18_5 in time: 24.36   
+ (z = 2, changes = 7) 
+  Pareto front found for 18_6 in time: 17.63   
+ (z = 1, changes = 7) 
+  Pareto front found for 18_10 in time: 18.49   
+ (z = 1, changes = 7) 
+  Pareto front found for 18_12 in time: 378.48   
+ (z = 5, changes = 6)
+ (z = 1, changes = 7) 
+  Pareto front found for 18_15 in time: 35.65   
+ (z = 2, changes = 6) 
+  Pareto front found for 18_16 in time: 32.98   
+ (z = 2, changes = 6)
+ (z = 1, changes = 7) 
+  Pareto front found for 18_19 in time: 17.45   
+ (z = 2, changes = 6) 
+  Pareto front found for 18_22 in time: 4.43   
+ (z = 1, changes = 6) 
+  Pareto front found for 18_23 in time: 81.79   
+ (z = 3, changes = 5)
+ (z = 2, changes = 7) 
+  Pareto front found for 19_1 in time: 14.93   
+ (z = 2, changes = 7) 
+  Pareto front found for 19_6 in time: 24.37   
+ (z = 2, changes = 4)
+ (z = 1, changes = 5) 
+  Pareto front found for 19_7 in time: 22.5   
+ (z = 6, changes = 6)
+ (z = 2, changes = 7) 
+  Pareto front found for 19_10 in time: 12.14   
+ (z = 1, changes = 6) 
+  Pareto front found for 19_12 in time: 22.45   
+ (z = 3, changes = 4)
+ (z = 1, changes = 5) 
+  Pareto front found for 19_13 in time: 69.52   
+ (z = 6, changes = 6)
+ (z = 2, changes = 7) 
+  Pareto front found for 19_14 in time: 37.07   
+ (z = 2, changes = 6) 
+  Pareto front found for 19_16 in time: 9.82   
+ (z = 1, changes = 5) 
+  Pareto front found for 19_18 in time: 40.69   
+ (z = 2, changes = 6) 
+  Pareto front found for 19_22 in time: 5.23   
+ (z = 2, changes = 5)
+ (z = 1, changes = 6) 
+  Pareto front found for 19_28 in time: 49.11   
+ (z = 4, changes = 4)
+ (z = 2, changes = 5)
+ (z = 1, changes = 6) 
+  Pareto front found for 19_29 in time: 87.85   
+ (z = 6, changes = 7)
+ (z = 2, changes = 8) 
+  Pareto front found for 20_3 in time: 259.8   
+ (z = 4, changes = 8)
+ (z = 2, changes = 7) 
+  Pareto front found for 20_6 in time: 104.54   
+ (z = 8, changes = 5)
+ (z = 1, changes = 6) 
+  Pareto front found for 20_9 in time: 5.79   
+ (z = 6, changes = 4)
+ (z = 2, changes = 5) 
+  Pareto front found for 20_12 in time: 2.75   
+ (z = 1, changes = 5) 
+  Pareto front found for 20_14 in time: 64.79   
+ (z = 6, changes = 5)
+ (z = 2, changes = 6) 
+  Pareto front found for 20_16 in time: 46.31   
+ (z = 6, changes = 5)
+ (z = 1, changes = 6) 
+  Pareto front found for 20_21 in time: 1.19   
+ (z = 2, changes = 5) 
+  Pareto front found for 20_22 in time: 8.21   
+ (z = 1, changes = 6) 
+  Pareto front found for 20_28 in time: 1.14   
+ (z = 1, changes = 3) 
+  Pareto front found for 21_0 in time: 40.36   
+ (z = 4, changes = 4)
+ (z = 3, changes = 7) 
+  Pareto front found for 21_3 in time: 55.84   
+ (z = 2, changes = 8) 
+  Pareto front found for 21_6 in time: 2.22   
+ (z = 1, changes = 6) 
+  Pareto front found for 21_7 in time: 14.57   
+ (z = 2, changes = 4) 
+  Pareto front found for 21_10 in time: 20.36   
+ (z = 1, changes = 6) 
+  Pareto front found for 21_12 in time: 20.67   
+ (z = 1, changes = 6) 
+  Pareto front found for 21_14 in time: 1.05   
+ (z = 2, changes = 5) 
+  Pareto front found for 21_15 in time: 15.09   
+ (z = 2, changes = 5) 
+  Pareto front found for 21_16 in time: 19.61   
+ (z = 1, changes = 8) 
+  Pareto front found for 21_22 in time: 15.95   
+ (z = 1, changes = 7) 
+  Pareto front found for 21_26 in time: 30.14   
+ (z = 2, changes = 6) 
+  Pareto front found for 21_28 in time: 77.06   
+ (z = 4, changes = 5)
+ (z = 1, changes = 6) 
+  Pareto front found for 21_29 in time: 16.23   
+ (z = 2, changes = 6) 
+  Pareto front found for 22_6 in time: 95.84   
+ (z = 5, changes = 6)
+ (z = 1, changes = 7) 
+  Pareto front found for 22_8 in time: 27.33   
+ (z = 7, changes = 5)
+ (z = 2, changes = 6) 
+  Pareto front found for 22_10 in time: 181.11   
+ (z = 7, changes = 5)
+ (z = 4, changes = 6)
+ (z = 1, changes = 7) 
+  Pareto front found for 22_12 in time: 3.11   
+ (z = 1, changes = 6) 
+  Pareto front found for 22_15 in time: 37.07   
+ (z = 2, changes = 8) 
+  Pareto front found for 22_16 in time: 67.16   
+ (z = 5, changes = 6)
+ (z = 1, changes = 8) 
+  Pareto front found for 22_18 in time: 89.71   
+ (z = 4, changes = 7)
+ (z = 2, changes = 8) 
+  Pareto front found for 22_19 in time: 15.83   
+ (z = 2, changes = 6) 
+  Pareto front found for 22_22 in time: 11.79   
+ (z = 1, changes = 8) 
+  Pareto front found for 22_25 in time: 88.4   
+ (z = 5, changes = 5)
+ (z = 2, changes = 6) 
+  Pareto front found for 22_28 in time: 10.14   
+ (z = 5, changes = 6)
+ (z = 2, changes = 7)
+ (z = 1, changes = 8) 
+  Pareto front found for 23_1 in time: 46.9   
+ (z = 2, changes = 7) 
+  Pareto front found for 23_6 in time: 17.2   
+ (z = 1, changes = 7) 
+  Pareto front found for 23_7 in time: 26.47   
+ (z = 2, changes = 5) 
+  Pareto front found for 23_10 in time: 7.17   
+ (z = 1, changes = 6) 
+  Pareto front found for 23_12 in time: 21.87   
+ (z = 2, changes = 6)
+ (z = 1, changes = 7) 
+  Pareto front found for 23_16 in time: 2.9   
+ (z = 1, changes = 6) 
+  Pareto front found for 23_22 in time: 30.49   
+ (z = 2, changes = 6)
+ (z = 1, changes = 7) 
+  Pareto front found for 23_23 in time: 110.99   
+ (z = 5, changes = 6)
+ (z = 2, changes = 7) 
+  Pareto front found for 23_27 in time: 32.17   
+ (z = 2, changes = 7) 
+  Pareto front found for 23_28 in time: 16.83   
+ (z = 4, changes = 6)
+ (z = 1, changes = 7) 
+  Pareto front found for 24_4 in time: 35.56   
+ (z = 3, changes = 5)
+ (z = 2, changes = 6) 
+  Pareto front found for 24_6 in time: 1.87   
+ (z = 1, changes = 2) 
+  Pareto front found for 24_9 in time: 37.77   
+ (z = 2, changes = 5) 
+  Pareto front found for 24_10 in time: 1.91   
+ (z = 1, changes = 3) 
+  Pareto front found for 24_12 in time: 2.34   
+ (z = 1, changes = 5) 
+  Pareto front found for 24_14 in time: 21.36   
+ (z = 2, changes = 5) 
+  Pareto front found for 24_16 in time: 6.58   
+ (z = 1, changes = 5) 
+  Pareto front found for 24_19 in time: 41.7   
+ (z = 2, changes = 7) 
+  Pareto front found for 24_22 in time: 2.06   
+ (z = 1, changes = 4) 
+  Pareto front found for 24_23 in time: 85.53   
+ (z = 3, changes = 5)
+ (z = 2, changes = 6) 
+  Pareto front found for 24_27 in time: 61.72   
+ (z = 2, changes = 5) 
+  Pareto front found for 24_28 in time: 6.44   
+ (z = 1, changes = 4) 
+  Pareto front found for 25_3 in time: 289.58   
+ (z = 4, changes = 6)
+ (z = 2, changes = 7) 
+  Pareto front found for 25_5 in time: 116.95   
+ (z = 3, changes = 7)
+ (z = 2, changes = 8) 
+  Pareto front found for 25_6 in time: 36.81   
+ (z = 2, changes = 6)
+ (z = 1, changes = 7) 
+  Pareto front found for 25_9 in time: 10.56   
+ (z = 2, changes = 4) 
+  Pareto front found for 25_10 in time: 2.76   
+ (z = 1, changes = 6) 
+  Pareto front found for 25_11 in time: 133.43   
+ (z = 6, changes = 4)
+ (z = 2, changes = 5) 
+  Pareto front found for 25_12 in time: 1.5   
+ (z = 1, changes = 6) 
+  Pareto front found for 25_16 in time: 4.01   
+ (z = 1, changes = 6) 
+  Pareto front found for 25_17 in time: 24.31   
+ (z = 5, changes = 3)
+ (z = 3, changes = 4) 
+  Pareto front found for 25_22 in time: 14.09   
+ (z = 2, changes = 4)
+ (z = 1, changes = 5) 
+  Pareto front found for 25_23 in time: 3.59   
+ (z = 2, changes = 4) 
+  Pareto front found for 25_28 in time: 12.82   
+ (z = 2, changes = 4)
+ (z = 1, changes = 5) 
+  Pareto front found for 26_6 in time: 18.87   
+ (z = 1, changes = 6) 
+  Pareto front found for 26_12 in time: 28.26   
+ (z = 1, changes = 7) 
+  Pareto front found for 26_13 in time: 203.22   
+ (z = 5, changes = 6)
+ (z = 4, changes = 7)
+ (z = 2, changes = 8) 
+  Pareto front found for 26_16 in time: 21.73   
+ (z = 4, changes = 5)
+ (z = 2, changes = 6)
+ (z = 1, changes = 7) 
+  Pareto front found for 26_21 in time: 143.09   
+ (z = 5, changes = 4)
+ (z = 4, changes = 5)
+ (z = 2, changes = 6) 
+  Pareto front found for 26_22 in time: 13.63   
+ (z = 1, changes = 7) 
+  Pareto front found for 26_25 in time: 132.96   
+ (z = 4, changes = 5)
+ (z = 2, changes = 7) 
+  Pareto front found for 26_26 in time: 71.16   
+ (z = 3, changes = 5)
+ (z = 2, changes = 6) 
+  Pareto front found for 26_28 in time: 13.75   
+ (z = 1, changes = 6) 
+  Pareto front found for 27_1 in time: 60.63   
+ (z = 4, changes = 5)
+ (z = 2, changes = 8) 
+  Pareto front found for 27_4 in time: 47.53   
+ (z = 4, changes = 4)
+ (z = 3, changes = 5)
+ (z = 2, changes = 6) 
+  Pareto front found for 27_6 in time: 30.68   
+ (z = 5, changes = 5)
+ (z = 1, changes = 6) 
+  Pareto front found for 27_8 in time: 188.18   
+ (z = 4, changes = 7)
+ (z = 2, changes = 8) 
+  Pareto front found for 27_10 in time: 1.86   
+ (z = 1, changes = 5) 
+  Pareto front found for 27_12 in time: 42.56   
+ (z = 4, changes = 5)
+ (z = 1, changes = 6) 
+  Pareto front found for 27_13 in time: 39.22   
+ (z = 2, changes = 8) 
+  Pareto front found for 27_16 in time: 6.99   
+ (z = 4, changes = 5)
+ (z = 1, changes = 6) 
+  Pareto front found for 27_18 in time: 231.83   
+ (z = 4, changes = 6)
+ (z = 3, changes = 7)
+ (z = 2, changes = 8) 
+  Pareto front found for 27_19 in time: 47.61   
+ (z = 4, changes = 5)
+ (z = 2, changes = 7) 
+  Pareto front found for 27_22 in time: 2.63   
+ (z = 1, changes = 5) 
+  Pareto front found for 27_28 in time: 3.59   
+ (z = 4, changes = 3)
+ (z = 1, changes = 4) 
+  Pareto front found for 28_4 in time: 210.03   
+ (z = 3, changes = 8)
+ (z = 2, changes = 9) 
+  Pareto front found for 28_6 in time: 12.02   
+ (z = 1, changes = 6) 
+  Pareto front found for 28_12 in time: 53.27   
+ (z = 1, changes = 7) 
+  Pareto front found for 28_16 in time: 10.95   
+ (z = 1, changes = 6) 
+  Pareto front found for 28_22 in time: 17.13   
+ (z = 1, changes = 7) 
+  Pareto front found for 28_28 in time: 12.45   
+ (z = 1, changes = 5) 
+  Pareto front found for 29_6 in time: 120.28   
+ (z = 5, changes = 4)
+ (z = 2, changes = 5)
+ (z = 1, changes = 7) 
+  Pareto front found for 29_9 in time: 141.3   
+ (z = 5, changes = 6)
+ (z = 2, changes = 7) 
+  Pareto front found for 29_10 in time: 28.23   
+ (z = 2, changes = 5)
+ (z = 1, changes = 6) 
+  Pareto front found for 29_12 in time: 76.48   
+ (z = 4, changes = 5)
+ (z = 1, changes = 6) 
+  Pareto front found for 29_14 in time: 96.43   
+ (z = 2, changes = 6) 
+  Pareto front found for 29_16 in time: 74.77   
+ (z = 5, changes = 5)
+ (z = 2, changes = 6)
+ (z = 1, changes = 7) 
+  Pareto front found for 29_21 in time: 16.77   
+ (z = 2, changes = 6) 
+  Pareto front found for 29_28 in time: 27.06   
+ (z = 1, changes = 6) 
+  Pareto front found for 30_4 in time: 68.45   
+ (z = 5, changes = 5)
+ (z = 3, changes = 6)
+ (z = 2, changes = 7) 
+  Pareto front found for 30_6 in time: 7.71   
+ (z = 1, changes = 6) 
+  Pareto front found for 30_16 in time: 313.09   
+ (z = 5, changes = 7)
+ (z = 1, changes = 8) 
+  Pareto front found for 30_22 in time: 4.66   
+ (z = 1, changes = 4) 
+  Pareto front found for 30_27 in time: 84.34   
+ (z = 3, changes = 6)
+ (z = 2, changes = 7) 
+  Pareto front found for 30_28 in time: 317.73   
+ (z = 4, changes = 5)
+ (z = 1, changes = 6) 

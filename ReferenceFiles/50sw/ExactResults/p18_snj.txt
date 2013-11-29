@@ -1,0 +1,18 @@
+Pareto 2 27
+2 2
+Pareto 11 11
+2 4
+Pareto 12 11
+2 2
+Pareto 14 11
+2 4
+Pareto 17 11
+2 2
+Pareto 18 27
+2 5
+Pareto 20 11
+2 3
+Pareto 24 11
+2 1
+Pareto 24 27
+2 0

@@ -35,6 +35,35 @@ private:
 	char temp[256];
 	double trueFrontUnaryHV;
 
+	std::vector < SatOptObjectiveVector> frontNormalizerSat(const std::vector < SatOptObjectiveVector > & _set, std::vector < eoRealInterval > &_bounds /*vectors contains bounds for normalization*/)
+	{
+	    //cout << "Sat norm\n";
+	    std::vector < SatOptObjectiveVector > front;
+	    front.resize(_set.size());
+	    for(unsigned int i=0; i < _set.size(); i++)
+	    {
+	        front[i].resize(SatOptObjectiveVector::Traits::nObjectives());
+	        for (unsigned int j=0; j<SatOptObjectiveVector::Traits::nObjectives(); j++)
+	        {
+	            if (SatOptObjectiveVector::Traits::minimizing(j))
+	            {
+	                //front[i][j]=abs((_set[i][j] - _bounds[j].minimum()) /_bounds[j].range());
+					front[i][j]=1.0f - abs((_set[i][j] - _bounds[j].minimum()) /_bounds[j].range());
+	            	//cout << front[i][j] << " ";
+
+	            }
+	            else
+	            {
+	                front[i][j]=((_set[i][j] - _bounds[j].minimum()) /_bounds[j].range());
+	            }
+	        }
+	        //cout << endl;
+	    }
+	    //cout << "Sat norm end\n";
+
+	    return front;
+	}
+
 	vector<RunResult> runJob(ALGO algo, int chCount, int swInst, int chInst,unsigned int numRuns)
 				{
 		vector<RunResult> results;
@@ -202,7 +231,7 @@ private:
 		return result;
 	}
 
-	std::vector < std::vector<double> > frontNormalizer(const std::vector < SatOptObjectiveVector > & _set, std::vector < eoRealInterval > _bounds ,SatOptObjectiveVector ref_point)
+	std::vector < std::vector<double> > frontNormalizer(const std::vector < SatOptObjectiveVector > & _set, std::vector < eoRealInterval > _bounds)
     				{
 		std::vector < std::vector<double> > front;
 		front.resize(_set.size());
@@ -214,20 +243,53 @@ private:
 				if (SatOptObjectiveVector::Traits::minimizing(j))
 				{
 					front[i][j]=1.0f - abs((_set[i][j] - _bounds[j].minimum()) /_bounds[j].range());
-					//cout << " orig: " << _set[i][j] << "  ";
-					//cout << front[i][j] << " "; //<< "
-					//boundRange " << _bounds[j].range();
-
+#ifdef DEBUG_INFO
+					cout << " orig: " << _set[i][j] << "  ";
+					cout << front[i][j] << " " << "boundRange " << _bounds[j].range();
+#endif
 				}
 				else
 				{
-					front[i][j]=((_set[i][j] - _bounds[j].minimum()) /_bounds[j].range()) - ref_point[j];
+					front[i][j]=((_set[i][j] - _bounds[j].minimum()) /_bounds[j].range());
 				}
 			}
-			//cout << endl;
+#ifdef DEBUG_INFO
+			cout << endl;
+#endif
 		}
 		return front;
-    				}
+    }
+
+	std::vector<SatOptObjectiveVector> frontNormalizerObjVec(const std::vector < SatOptObjectiveVector > & _set, std::vector < eoRealInterval > _bounds)
+    				{
+		//std::vector < std::vector<double> > front;
+		vector<SatOptObjectiveVector> front;
+		front.resize(_set.size());
+		for(unsigned int i=0; i < _set.size(); i++)
+		{
+			front[i].resize(SatOptObjectiveVector::Traits::nObjectives());
+			for (unsigned int j=0; j<SatOptObjectiveVector::Traits::nObjectives(); j++)
+			{
+				if (SatOptObjectiveVector::Traits::minimizing(j))
+				{
+					front[i][j]=1.0f - abs((_set[i][j] - _bounds[j].minimum()) /_bounds[j].range());
+#ifdef DEBUG_INFO
+					cout << " orig: " << _set[i][j] << "  ";
+					cout << front[i][j] << " "; //<< "
+					cout << "boundRange " << _bounds[j].range();
+#endif
+				}
+				else
+				{
+					front[i][j]=((_set[i][j] - _bounds[j].minimum()) /_bounds[j].range());
+				}
+			}
+#ifdef DEBUG_INFO
+			cout << endl;
+#endif
+		}
+		return front;
+    }
 
 	std::vector < std::vector<double> > frontNormalizerRef(const std::vector < SatOptObjectiveVector > & _set, std::vector < eoRealInterval > _bounds,SatOptObjectiveVector ref_point)
 				{
@@ -377,6 +439,7 @@ public:
 
 			vector< vector<SatOptObjectiveVector> >resultsObjVectors;
 			resultsObjVectors = this->resultsObjVectorsVect[i];
+			resultsObjVectors.push_back(optimalFrontObjVector);
 			for(unsigned int j=0; j<resultsObjVectors.size(); j++)
 			{
 				vector<SatOptObjectiveVector> resultObjVector=resultsObjVectors[j];
@@ -411,8 +474,8 @@ public:
 			minSwChanges=0;
 		}
 
-		//cout << "maxLPL " << maxLPL << " maxSW " << maxSwChanges << endl;
-		//cout << "minLPL " << minLPL << " minSW " << minSwChanges << endl;
+		cout << "maxLPL " << maxLPL << " maxSW " << maxSwChanges << endl;
+		cout << "minLPL " << minLPL << " minSW " << minSwChanges << endl;
 
 		eoRealInterval bound= eoRealInterval(minLPL,maxLPL);
 		eoRealInterval bound1=eoRealInterval(minSwChanges,maxSwChanges);
@@ -432,8 +495,8 @@ public:
 		setupObjVector.push_back(objVectMax);
 
 
-		refPoint[0]=0;//maxLPL;
-		refPoint[1]=0;//maxSwChanges;
+		refPoint[0]=maxLPL;
+		refPoint[1]=maxSwChanges;
 
 		refFront[0]=maxLPL;
 		refFront[1]=maxSwChanges;
@@ -456,7 +519,7 @@ public:
 			//cout << "HyperVolume: " << hyperVolumeMetricUnary(resultsObjVectors[i]) << endl;
 			try
 			{
-				std::vector < std::vector<double> > currentFrontNorm=frontNormalizer((*resultsObjVectors)[i],bounds,refPoint);
+				std::vector < std::vector<double> > currentFrontNorm=frontNormalizer((*resultsObjVectors)[i],bounds);
 				//cout << "unary HV: " << hyperVolumeMetricUnary.calc_hypervolume(currentFrontNorm,currentFrontNorm.size(),2) << endl;
 				double unaryHV = hyperVolumeMetricUnary.calc_hypervolume(currentFrontNorm,currentFrontNorm.size(),2);
 				//cout << "unaryHV: " << unaryHV << endl;
@@ -471,24 +534,31 @@ public:
 			i++;
 		}
 		//cout << "HyperVolume: " << hyperVolumeMetricUnary(optimalFrontObjVector) << endl;
-		std::vector < std::vector<double> > currentFrontNorm=frontNormalizer(optimalFrontObjVector,bounds,refPoint);
-		trueFrontUnaryHV=hyperVolumeMetricUnary.calc_hypervolume(currentFrontNorm,currentFrontNorm.size(),2);
+		std::vector < std::vector<double> > trueFrontNorm=frontNormalizer(optimalFrontObjVector,bounds);
+		trueFrontUnaryHV=hyperVolumeMetricUnary.calc_hypervolume(trueFrontNorm,trueFrontNorm.size(),2);
 	}
 
 
 	void calculateBinaryDiffHV(vector<RunResult> *results, vector< vector<SatOptObjectiveVector> >*resultsObjVectors){
-		moeoHyperVolumeDifferenceMetric <SatOptObjectiveVector>hyperVolDiff(true, refFront);
+		SatOptObjectiveVector refPoint;
+		refPoint[0]=1.0f;
+		refPoint[1]=1.0f;
+		moeoHyperVolumeDifferenceMetric <SatOptObjectiveVector>hyperVolDiff(true, refPoint);
 		//moeoHypervolumeBinaryMetric <SatOptObjectiveVector>hyperVolBinary(1.1);
+		vector<SatOptObjectiveVector> trueFrontNorm=frontNormalizerObjVec(optimalFrontObjVector,bounds);
 		//cout << "\nBinary Hyper volume is:" << endl;
 		//This loop calculates and print the hyperVolumeDiff
 		for(unsigned int i=0; i<results->size(); i++)
 		{
-			if(optimalFrontObjVector.size() > 0 && resultsObjVectors[i].size() > 0)
+			//changed from greater to greater or equal to test new assumption!
+			if(optimalFrontObjVector.size() > 0 && (*resultsObjVectors)[i].size() > 0)
 			{
+				vector<SatOptObjectiveVector> currentFrontNorm=frontNormalizerObjVec((*resultsObjVectors)[i],bounds);
 				//cout << "hyperDiff: " << hyperVolDiff(optimalFrontObjVector,resultsObjVectors[i]) << endl;
 				try
 				{
-					double binaryHV=hyperVolDiff(optimalFrontObjVector,(*resultsObjVectors)[i]);
+					//double binaryHV=hyperVolDiff(optimalFrontObjVector,(*resultsObjVectors)[i]);
+					double binaryHV=hyperVolDiff(currentFrontNorm,trueFrontNorm);
 					(*results)[i].setBinaryHyperVol(binaryHV);
 					//cout << "binaryHV: " << binaryHV << endl;
 
@@ -507,19 +577,21 @@ public:
 
 	void calculateBinaryAdditiveEpsilon(vector<RunResult> *results, vector< vector<SatOptObjectiveVector> >*resultsObjVectors){
 
-		moeoVecVsVecAdditiveEpsilonBinaryMetric < SatOptObjectiveVector > additiveEpsilon(true);
+		moeoVecVsVecAdditiveEpsilonBinaryMetric < SatOptObjectiveVector > additiveEpsilon(false);
+		vector<SatOptObjectiveVector> trueFrontNorm=frontNormalizerObjVec(optimalFrontObjVector,bounds);
 		//This loop calculates and print the AdditiveEpsilonBinaryMetric
 		for(unsigned int i=0; i<results->size(); i++)
 		{
 
-			if(optimalFrontObjVector.size() > 0 && resultsObjVectors[i].size() > 0)
+			if(optimalFrontObjVector.size() > 0 && (*resultsObjVectors)[i].size() > 0)
 			{
+				vector<SatOptObjectiveVector> currentFrontNorm=frontNormalizerObjVec((*resultsObjVectors)[i],bounds);
 				//hyperVolDiff.setup(optimalFrontObjVector,resultsObjVectors[i]);
 				//cout << "additiveEpsilon: " << additiveEpsilon(resultsObjVectors[i],optimalFrontObjVector) << endl;
 				try
 				{
-
-					double epsilon=additiveEpsilon((*resultsObjVectors)[i],optimalFrontObjVector);
+					//double epsilon=additiveEpsilon((*resultsObjVectors)[i],optimalFrontObjVector);
+					double epsilon=additiveEpsilon(trueFrontNorm,currentFrontNorm);
 					(*results)[i].setAdditiveEps(epsilon);
 					//cout << "epsilon: " << epsilon << endl;
 
@@ -537,27 +609,28 @@ public:
 
 	void calculateBinaryEntropy(vector<RunResult> *results, vector< vector<SatOptObjectiveVector> >*resultsObjVectors){
 		//This loop calculates and print the entropyMetric
+		vector<SatOptObjectiveVector> trueFrontNorm=frontNormalizerObjVec(optimalFrontObjVector,bounds);
+		moeoEntropyMetric < SatOptObjectiveVector > entropyMetric;
 		for(unsigned int i=0; i<results->size(); i++)
 		{
-			moeoEntropyMetric < SatOptObjectiveVector > entropyMetric;
 
-			if(optimalFrontObjVector.size() > 0 && resultsObjVectors[i].size() > 0)
+			if(optimalFrontObjVector.size() > 0 && (*resultsObjVectors)[i].size() > 0)
 			{
+				vector<SatOptObjectiveVector> currentFrontNorm=frontNormalizerObjVec((*resultsObjVectors)[i],bounds);
 				//by swapping the inputs we will get constant value for all, i don't know why
-
 				try
 				{
-					(*results)[i].setEntropy(entropyMetric((*resultsObjVectors)[i],optimalFrontObjVector));
+					//(*results)[i].setEntropy(entropyMetric((*resultsObjVectors)[i],optimalFrontObjVector));
+					//cout << "before calc entropy in try\n";
+					(*results)[i].setEntropy(entropyMetric(currentFrontNorm,trueFrontNorm));
 				}
 				catch (exception& e)
 				{
 					cout << "error is: " << e.what() << endl;
 					(*results)[i].setEntropy(333);
 				}
-
 			}
 			else (*results)[i].setEntropy(333);
-
 		}
 	}
 
@@ -616,7 +689,8 @@ public:
 				(*ResultIterator).finalArchive.sortedPrintOn(finalResFile);
 
 
-
+				/////////////DEBUG INFO//////////////////////////
+#ifdef DEBUG_INFO
 				cout << "runNumber " 		<< i << endl;
 				cout << "genCount " 		<< tmpGenCount << endl;
 				cout << "elapsedTime " 		<< tmpElapsedTime << endl;
@@ -626,7 +700,8 @@ public:
 				cout << "entropy " 		<< tmpEntropy << endl;
 				cout << "archive " 		<< i << endl;
 				(*ResultIterator).finalArchive.sortedPrintOn(cout);
-
+#endif
+				///////////////////////////////////////////////////
 				i++;
 			}
 
@@ -660,7 +735,8 @@ public:
 						<< (*ResultIterator).getAdditiveEps() << ","
 						<< (*ResultIterator).getEntropy() << "\r\n";
 
-
+				//////DEBUG INFO///////////////////////////////////
+#ifdef DEBUG_INFO
 				cout << i << ","
 						<< (*ResultIterator).getGenCount() << ","
 						<< (*ResultIterator).getElapsedTime() << ","
@@ -669,6 +745,8 @@ public:
 						<< (*ResultIterator).getBinaryHyperVol() << ","
 						<< (*ResultIterator).getAdditiveEps() << ","
 						<< (*ResultIterator).getEntropy() << "\r\n";
+#endif
+				/////////////////////////////////////////////////////////
 				i++;
 			}
 			try
@@ -700,9 +778,21 @@ public:
 				resultsObjVectorsVectIterator != this->resultsObjVectorsVect.end();
 				resultsObjVectorsVectIterator++,fullResultsIterator++,l++)
 		{
+#ifdef DEBUG_INFO
+cout << "before unaryHV\n";
+#endif
 			calculateUnaryHV(&(*fullResultsIterator), &(*resultsObjVectorsVectIterator));
+#ifdef DEBUG_INFO
+cout << "before binaryHV\n";
+#endif
 			calculateBinaryDiffHV(&(*fullResultsIterator), &(*resultsObjVectorsVectIterator));
+#ifdef DEBUG_INFO
+cout << "before binaryEps\n";
+#endif
 			calculateBinaryAdditiveEpsilon(&(*fullResultsIterator), &(*resultsObjVectorsVectIterator));
+#ifdef DEBUG_INFO
+cout << "before binary ent\n";
+#endif
 			calculateBinaryEntropy(&(*fullResultsIterator), &(*resultsObjVectorsVectIterator));
 			writeResultsToCSV(l);
 			writeResultsToTxt(&(*fullResultsIterator),l);

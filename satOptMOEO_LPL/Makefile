@@ -53,7 +53,7 @@ LIBINCDIR = ../lib/inc
 SRCDIR=src
 
 
-PROGRAM = satOptMOEO
+PROGRAM = satOptMOEO_LPL
 
 
 INCLUDEDIRS = $(LDLIBINC)

@@ -5,6 +5,8 @@
 * Created on March 28, 2013, 2:40 PM
 */
 
+#define DEBUG_INFO 1
+
 #include <cstdlib>
 #include <time.h>
 #include <sys/stat.h>

@@ -1429,6 +1429,7 @@ vector<double> Payload::run(vector<int> position_vector,
 
 double Payload::calcPathLoss(vector<std::string> pathStrVec){
     double pathLoss;
+	pathLoss=0.0f;
 
 return pathLoss;
 }

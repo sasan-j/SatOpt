@@ -53,11 +53,11 @@ NB_HOSTS=`cat ${OAR_NODEFILE} | uniq | wc -l`
 
 # The [serial] task to be executed i.E. your favorite
 # Java/C/C++/Ruby/Perl/Python/R/whatever program to be invoked in parallel  
-TASK="sh $HOME/myCodes/TaSpl/parallel/launch.sh"
+TASK="sh $HOME/myCodes/SatOpt/parallel/launch.sh"
 
 # Define here a file containing the arguments to pass to the task, one line per 
 # exected run
-ARG_TASK_FILE="$HOME/myCodes/TaSpl/parallel/args/args_23"
+ARG_TASK_FILE="$HOME/myCodes/SatOpt/parallel/args/args_23"
 
 # Total number of tasks to be executed
 [ -n "${ARG_TASK_FILE}" ] && NB_TASKS=`cat ${ARG_TASK_FILE} | wc -l` || NB_TASKS=$(( 2*${NB_HOSTS} ))

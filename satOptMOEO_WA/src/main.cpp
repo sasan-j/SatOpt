@@ -5,6 +5,8 @@
 * Created on March 28, 2013, 2:40 PM
 */
 
+#define DEBUG_PAYLOAD 1
+
 #include <cstdlib>
 #include <time.h>
 #include <sys/stat.h>
@@ -64,7 +66,7 @@ using namespace std;
 
 //samplePayload.Payload();
 PrIns *p1 = new PrIns("initial");
-Payload *samplePayload= new Payload;
+Payload *samplePayload= new Payload(true);
 Payload_100 *payloadObject100 = new Payload_100;
 vector<int> initSwitchPos;
 vector<string> chan_instance; //says which channel should connect to amp

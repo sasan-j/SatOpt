@@ -12,6 +12,10 @@
 #include "Port.h"
 #include "PrIns.h"
 #include "Node.h"
+#include "LossCalculator.h"
+
+#define DEBUG_PAYLOAD 1
+
 
 class Payload {
 
@@ -128,20 +132,22 @@ class Payload {
     vector<Node*> channels;
     vector<Node*> switches;
     vector<Node*> testex;
+    vector<std::string> currentPathStrVect;
+    bool isPathLoss;
 
 
 public:
     double penaltyCoeff;
     double penaltyLPLCoeff;
 
-    Payload();
+    Payload(bool);
     Payload(const Payload& orig);
     Port* getChannelsNeighborPort(Node* s);
     Node* getChannelNeighbor(Node* c);
     void createGraph(vector<Node*> switches);
     vector<int> existsPathInGraph(Node* chan);
     vector<double> run(vector<int> position_vector, vector<string> chan_instance);
-    double calcPathLoss(vector<std::string> pathStrVec);
+    double calcPathLoss(vector<std::string> *pathStrVec);
     void clearSettings();
     ~Payload();
 private:

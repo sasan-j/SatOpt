@@ -136,43 +136,43 @@ Payload_100::Payload_100()
 
 
 
-    this->t42= new Node("T42", "amplifier", 2, 14);
-    this->t45= new Node("T45", "amplifier", 2, 11);
-    this->t46= new Node("T46", "amplifier", 6, 14);
-    this->t49= new Node("T49", "amplifier", 6, 8);
-    this->t51= new Node("T51", "amplifier", 2, 8);
-    this->t55= new Node("T55", "amplifier", 6, 18);
-    this->t56= new Node("T56", "amplifier", 5, 18);
-    this->t57= new Node("T57", "amplifier", 1, 18);
-    this->t58= new Node("T58", "amplifier", 2, 18);
-    this->t59= new Node("T59", "amplifier", 1, 17);
-    this->t60= new Node("T60", "amplifier", 5, 15);
-    this->t61= new Node("T61", "amplifier", 5, 14);
-    this->t62= new Node("T62", "amplifier", 1, 14);
-    this->t63= new Node("T63", "amplifier", 5, 11);
-    this->t64= new Node("T64", "amplifier", 1, 11);
-    this->t65= new Node("T65", "amplifier", 5, 8);
-    this->t66= new Node("T66", "amplifier", 1, 8);
-    this->t67= new Node("T67", "amplifier", 5, 5);
-    this->t68= new Node("T68", "amplifier", 1, 3);
-    this->t69= new Node("T69", "amplifier", 2, 2);
-    this->t70= new Node("T70", "amplifier", 1, 2);
-    this->t71= new Node("T71", "amplifier", 5, 0);
-    this->t72= new Node("T72", "amplifier", 6, 0);
+    this->t42= new Node("t42", "amplifier", 2, 14);
+    this->t45= new Node("t45", "amplifier", 2, 11);
+    this->t46= new Node("t46", "amplifier", 6, 14);
+    this->t49= new Node("t49", "amplifier", 6, 8);
+    this->t51= new Node("t51", "amplifier", 2, 8);
+    this->t55= new Node("t55", "amplifier", 6, 18);
+    this->t56= new Node("t56", "amplifier", 5, 18);
+    this->t57= new Node("t57", "amplifier", 1, 18);
+    this->t58= new Node("t58", "amplifier", 2, 18);
+    this->t59= new Node("t59", "amplifier", 1, 17);
+    this->t60= new Node("t60", "amplifier", 5, 15);
+    this->t61= new Node("t61", "amplifier", 5, 14);
+    this->t62= new Node("t62", "amplifier", 1, 14);
+    this->t63= new Node("t63", "amplifier", 5, 11);
+    this->t64= new Node("t64", "amplifier", 1, 11);
+    this->t65= new Node("t65", "amplifier", 5, 8);
+    this->t66= new Node("t66", "amplifier", 1, 8);
+    this->t67= new Node("t67", "amplifier", 5, 5);
+    this->t68= new Node("t68", "amplifier", 1, 3);
+    this->t69= new Node("t69", "amplifier", 2, 2);
+    this->t70= new Node("t70", "amplifier", 1, 2);
+    this->t71= new Node("t71", "amplifier", 5, 0);
+    this->t72= new Node("t72", "amplifier", 6, 0);
 
     //subgroup1
-    this->t37= new Node("T37", "amplifier", 1, 27);
-    this->t38= new Node("T38", "amplifier", 5, 38);
-    this->t39= new Node("T39", "amplifier", 1, 36);
-    this->t40= new Node("T40", "amplifier", 5, 33);
-    this->t41= new Node("T41", "amplifier", 1, 35);
-    this->t43= new Node("T43", "amplifier", 1, 30);
-    this->t44= new Node("T44", "amplifier", 5, 30);
-    this->t47= new Node("T47", "amplifier", 5, 26);
-    this->t48= new Node("T48", "amplifier", 5, 27);
-    this->t50= new Node("T50", "amplifier", 1, 24);
-    this->t52= new Node("T52", "amplifier", 1, 23);
-    this->t53= new Node("T53", "amplifier", 5, 23);
+    this->t37= new Node("t37", "amplifier", 1, 27);
+    this->t38= new Node("t38", "amplifier", 5, 38);
+    this->t39= new Node("t39", "amplifier", 1, 36);
+    this->t40= new Node("t40", "amplifier", 5, 33);
+    this->t41= new Node("t41", "amplifier", 1, 35);
+    this->t43= new Node("t43", "amplifier", 1, 30);
+    this->t44= new Node("t44", "amplifier", 5, 30);
+    this->t47= new Node("t47", "amplifier", 5, 26);
+    this->t48= new Node("t48", "amplifier", 5, 27);
+    this->t50= new Node("t50", "amplifier", 1, 24);
+    this->t52= new Node("t52", "amplifier", 1, 23);
+    this->t53= new Node("t53", "amplifier", 5, 23);
 ////////////////////////////////////
 
 

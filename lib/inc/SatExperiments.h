@@ -543,7 +543,7 @@ public:
 		SatOptObjectiveVector refPoint;
 		refPoint[0]=1.0f;
 		refPoint[1]=1.0f;
-		moeoHyperVolumeDifferenceMetric <SatOptObjectiveVector>hyperVolDiff(true, refPoint);
+		moeoHyperVolumeDifferenceMetric <SatOptObjectiveVector>hyperVolDiff(false, 1.1);
 		//moeoHypervolumeBinaryMetric <SatOptObjectiveVector>hyperVolBinary(1.1);
 		vector<SatOptObjectiveVector> trueFrontNorm=frontNormalizerObjVec(optimalFrontObjVector,bounds);
 		//cout << "\nBinary Hyper volume is:" << endl;
@@ -558,7 +558,7 @@ public:
 				try
 				{
 					//double binaryHV=hyperVolDiff(optimalFrontObjVector,(*resultsObjVectors)[i]);
-					double binaryHV=hyperVolDiff(currentFrontNorm,trueFrontNorm);
+					double binaryHV=hyperVolDiff(trueFrontNorm,currentFrontNorm);
 					(*results)[i].setBinaryHyperVol(binaryHV);
 					//cout << "binaryHV: " << binaryHV << endl;
 
@@ -572,6 +572,31 @@ public:
 
 			}
 			else (*results)[i].setBinaryHyperVol(333);
+		}
+	}
+
+	void calculateDiffHV(vector<RunResult> *results, vector< vector<SatOptObjectiveVector> >*resultsObjVectors){
+
+		//This loop calculates and print the hyperVolumeDiff
+		for(unsigned int i=0; i<results->size(); i++)
+		{
+
+				vector<SatOptObjectiveVector> currentFrontNorm=frontNormalizerObjVec((*resultsObjVectors)[i],bounds);
+				//cout << "hyperDiff: " << hyperVolDiff(optimalFrontObjVector,resultsObjVectors[i]) << endl;
+				try
+				{
+					//double binaryHV=hyperVolDiff(optimalFrontObjVector,(*resultsObjVectors)[i]);
+					//double binaryHV=hyperVolDiff(trueFrontNorm,currentFrontNorm);
+					(*results)[i].setBinaryHyperVol(trueFrontUnaryHV-(*results)[i].getUnaryHyperVol());
+					//cout << "binaryHV: " << binaryHV << endl;
+
+					//results[i].setBinaryHyperVol(hyperVolBinary(optimalFrontObjVector,optimalFrontObjVector));
+				}
+				catch (exception& e)
+				{
+					cout << "error is: " << e.what()  << endl;
+					(*results)[i].setBinaryHyperVol(333);
+				}
 		}
 	}
 
@@ -785,7 +810,8 @@ cout << "before unaryHV\n";
 #ifdef DEBUG_INFO
 cout << "before binaryHV\n";
 #endif
-			calculateBinaryDiffHV(&(*fullResultsIterator), &(*resultsObjVectorsVectIterator));
+			//calculateBinaryDiffHV(&(*fullResultsIterator), &(*resultsObjVectorsVectIterator));
+			calculateDiffHV(&(*fullResultsIterator), &(*resultsObjVectorsVectIterator));
 #ifdef DEBUG_INFO
 cout << "before binaryEps\n";
 #endif

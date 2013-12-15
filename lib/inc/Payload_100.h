@@ -12,6 +12,7 @@
 #include "Port.h"
 #include "PrIns.h"
 #include "Node.h"
+#include "LossCalculator.h"
 
 class Payload_100
 {

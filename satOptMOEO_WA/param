@@ -11,12 +11,12 @@
 # --mutEpsilon=0.01                        # -e : epsilon for mutation
 # --pCross=0.8                             # -C : Crossover probability
 # --pMut=1                                 # -M : Mutation probability final result would be P_MUT/chrom_lenght
---maxTime=30                             # -T : Maximum execution time
+--maxTime=15                             # -T : Maximum execution time
 # --algo=0                                 # -A : Algo to use, NSGA2=0 SPEA2=1 IBEA=2 MOGA=3
 --runs=1                                 # -R : Number of runs
 --swInst=1                               # -U : Switch initial position instance 0-29
 --chInst=0                               # -V : Channels to connect, instance 0-29
---chCount=8                              # -W : Number of channels 8-13-18-23
+--chCount=23                              # -W : Number of channels 8-13-18-23
 --swCount=50                            # -S : Number of payload switches 50 or 100
 
 ### PERSISTENCE ####################################################################

@@ -65,7 +65,7 @@ using namespace std;
 //samplePayload.Payload();
 PrIns *p1 = new PrIns("initial");
 Payload *samplePayload= new Payload(false);
-Payload_100 *payloadObject100 = new Payload_100;
+Payload_100 *payloadObject100 = new Payload_100(false);
 vector<int> initSwitchPos;
 vector<string> chan_instance; //says which channel should connect to amp
 string resultDir = "result/";

@@ -14,7 +14,7 @@
 #include "Node.h"
 #include "LossCalculator.h"
 
-#define DEBUG_PAYLOAD 1
+//#define DEBUG_PAYLOAD 1
 
 
 class Payload {

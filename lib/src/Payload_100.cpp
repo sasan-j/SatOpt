@@ -7,12 +7,11 @@
 
 #include "../inc/Payload_100.h"
 
-Payload_100::Payload_100()
-{
+Payload_100::Payload_100(bool _isPathLoss) {
 
     penaltyCoeff = 15.01f;
     penaltyLPLCoeff = 1.0f;
-
+    isPathLoss = _isPathLoss;
 
     this->f1= new Node("F1", "channel", 1, 0);
     this->f3= new Node("F3", "channel", 2, 0);
@@ -834,8 +833,7 @@ void Payload_100::createGraph(vector<Node*> switches)   // This function creates
         current = switches[0];
         string name = current->getName();
 
-        if (current->isChannel())
-        {
+        if (current->isChannel()) {
             /*	 temp = current->getChannelNeighbor(current);
              if(temp->getRightNeighbor() && (temp->getRightNeighbor()->getName()).compare(name)==0){
              temp->getRightPort()->addConnection(current->getName());
@@ -848,8 +846,7 @@ void Payload_100::createGraph(vector<Node*> switches)   // This function creates
              }
              */
         }
-        else   // if it is a switch
-        {
+        else { // if it is a switch
             int current_pos = current->getPos();
             if (current->getLeftNeighbor()
                     && !current->getLeftNeighbor()->isAmplifier()
@@ -1162,6 +1159,7 @@ vector<int> Payload_100::existsPathInGraph(Node* chan)   // check for a given ch
     current = chan;
     p1 = getChannelsNeighborPort(current);
     path.push_back(p1);
+    currentPathStrVect.clear();
 
     if (p1->getSwitchPositionConnection())
     {
@@ -1202,35 +1200,35 @@ vector<int> Payload_100::existsPathInGraph(Node* chan)   // check for a given ch
     if (!p2->getStringConnection().empty())
     {
 
-        std::vector<std::string> pathStringVec;// this will hold whole path string names
+      	//next 10 lines are dedicated to calculatePathLoss functionality
         std::string pre="";
         std::string delimiter = "_";
 
-        pathStringVec.push_back(chan->getName());
+        currentPathStrVect.push_back(chan->getName());
 
         for (unsigned int t = 0; t < path.size(); t++)
         {
             std::string currentItem = path[t]->getName();
             currentItem = currentItem.substr(0, currentItem.find(delimiter));
-            if(currentItem.compare(pre)!=0)
-            {
-                pathStringVec.push_back(currentItem);
+            if(currentItem.compare(pre)!=0){
+                currentPathStrVect.push_back(currentItem);
             }
             pre=currentItem;
         }
-        pathStringVec.push_back(p2->getStringConnection());
+        currentPathStrVect.push_back(p2->getStringConnection());
 
 
         //for (unsigned int t = 0; t < pathStringVec.size(); t++) {
         //    cout << pathStringVec[t] << "-";
         //}
         //cout << endl;
+	
 
-#ifdef DEBUG_ALL
+	
+#ifdef DEBUG_PAYLOAD
 
         cout << "Path found for " << chan->getName() << " !!!" << endl;
-        for (int t = 0; t < path.size(); t++)
-        {
+        for (int t = 0; t < path.size(); t++) {
             cout << path[t]->getName() << endl;
         }
         cout << p2->getStringConnection() << endl;
@@ -1238,10 +1236,8 @@ vector<int> Payload_100::existsPathInGraph(Node* chan)   // check for a given ch
         result = 1;
         pathsLength.push_back(1);
         pathsLength.push_back(path.size() / 2);
-    }
-    else
-    {
-#ifdef DEBUG_ALL
+    } else {
+#ifdef DEBUG_PAYLOAD
         cout << " No path for " << chan->getName() << endl;
 #endif
         result = 0;
@@ -1948,14 +1944,14 @@ vector<double> Payload_100::run(vector<int> position_vector,
 
     vector<Node*> channels_to_test_path;
 
+
     createGraph(testex);
     //cout << "after createGraph function call" << endl;
-    for (unsigned int r = 0; r < chan_instance.size(); r++)
-    {
-        for (unsigned int j = 0; j < this->channels.size(); j++)
-        {
-            if (chan_instance[r] == this->channels[j]->getName())
-            {
+    //cout << "channel instance vect size " << chan_instance.size() << endl;
+    for (unsigned int r = 0; r < chan_instance.size(); r++) {
+        //cout << chan_instance[r] << endl;
+        for (unsigned int j = 0; j < this->channels.size(); j++) {
+            if (chan_instance[r] == this->channels[j]->getName()) {
                 channels_to_test_path.push_back(this->channels[j]);
                 break;
             }
@@ -1966,19 +1962,27 @@ vector<double> Payload_100::run(vector<int> position_vector,
     vector<int> vv;
     unsigned int ConstructedPaths=0;//No of paths that has been created
     int LongestPathLenght=0;
+    double LargestPathLoss=0.0f;
     //cout << "before checking path existance for " << channels_to_test_path.size() << " channels" << endl;
-    for (unsigned int y = 0; y < channels_to_test_path.size(); y++)
-    {
+    for (unsigned int y = 0; y < channels_to_test_path.size(); y++) {
         vv = existsPathInGraph(channels_to_test_path[y]);
         //cout << "after checking path existance for " << y << " one" << endl;
         int path = vv[0];
         int length = vv[1];
         ConstructedPaths = ConstructedPaths + path;
 
-        if (length > LongestPathLenght)
-        {
+        if (length > LongestPathLenght) {
             LongestPathLenght = length;
         }
+        
+        if(isPathLoss)
+	  if(currentPathStrVect.size()>2){
+	    double tempPathLoss;
+	    tempPathLoss=calcPathLoss(&currentPathStrVect);
+	    if(tempPathLoss>LargestPathLoss)
+	      LargestPathLoss=tempPathLoss;
+	  }
+	
     }
     //cout << "after checking path existance" << endl;
     if(ConstructedPaths==0)
@@ -1987,16 +1991,16 @@ vector<double> Payload_100::run(vector<int> position_vector,
 #ifdef DEBUG_ALL
 
     cout << "Constructed paths: " << ConstructedPaths
-         //<< ". Total number of used switches: " << fitness2
-         << ". Longest Path length: " << LongestPathLenght << endl;
+            //<< ". Total number of used switches: " << fitness2
+            << ". Longest Path length: " << LongestPathLenght << endl;
 
 #endif
     double qualityMetric=1.0f;//I think its better to call this value as quality metric
     vector<double> result;
 
-    if (ConstructedPaths < channels_to_test_path.size())
-    {
+    if (ConstructedPaths < channels_to_test_path.size()) {
         qualityMetric=((channels_to_test_path.size() - ConstructedPaths) * penaltyCoeff)+LongestPathLenght*penaltyLPLCoeff;
+        //qualityMetric = ((channels_to_test_path.size() - ConstructedPaths) * 50)+LongestPathLenght;
         //qualityMetric=penaltyCoeff+LongestPathLenght;
     }
     else
@@ -2445,11 +2449,14 @@ vector<double> Payload_100::run(vector<int> position_vector,
 }
 
 
-double Payload_100::calcPathLoss(vector<std::string> pathStrVec)
-{
+double Payload_100::calcPathLoss(vector<std::string> *pathStrVec){
     double pathLoss;
-
-    return pathLoss;
+    LossCalculator lc= LossCalculator();
+    pathLoss=lc.calculatePathLoss(pathStrVec);
+    #ifdef DEBUG_LOSS_CALC
+    std::cout << "pathloss: "<< pathLoss << std::endl;
+    #endif
+return pathLoss;
 }
 
 

@@ -5,7 +5,8 @@
 * Created on March 28, 2013, 2:40 PM
 */
 
-#define DEBUG_PAYLOAD 1
+//#define DEBUG_PAYLOAD 1
+//#define DEBUG_LOSS_CALC 1
 
 #include <cstdlib>
 #include <time.h>
@@ -67,7 +68,7 @@ using namespace std;
 //samplePayload.Payload();
 PrIns *p1 = new PrIns("initial");
 Payload *samplePayload= new Payload(true);
-Payload_100 *payloadObject100 = new Payload_100;
+Payload_100 *payloadObject100 = new Payload_100(true);
 vector<int> initSwitchPos;
 vector<string> chan_instance; //says which channel should connect to amp
 string resultDir = "result/";
@@ -178,8 +179,8 @@ int main_function(int argc, char *argv[])
     unsigned int runs = parser.createParam((unsigned int) (5), "runs", "Number of runs", 'R', "Param").value();
     unsigned int swInst = parser.createParam((int) (1), "swInst", "Switch initial position instance 0-29", 'U', "Param").value();
     unsigned int chInst = parser.createParam((int) (1), "chInst", "Channels to connect, instance 0-29", 'V', "Param").value();
-    unsigned int chCount = parser.createParam((int) (35), "chCount", "Number of channels 8-13-18-23", 'W', "Param").value();
-    unsigned int swCount = parser.createParam((int) (100), "swCount", "Number of payload switches 50 or 100", 'S', "Param").value();
+    unsigned int chCount = parser.createParam((int) (8), "chCount", "Number of channels 8-13-18-23", 'W', "Param").value();
+    unsigned int swCount = parser.createParam((int) (50), "swCount", "Number of payload switches 50 or 100", 'S', "Param").value();
 
     eoValueParam<string> switchInst("32112442144331313411332124112141422433134132413232", "Initial Switch Positions", "This parameter specifies the initial position of the switches", 'S');
     parser.processParam(switchInst, "switchInst");
@@ -193,7 +194,11 @@ int main_function(int argc, char *argv[])
     vector<string> chanInstanceStr;
 
     //cout << "Now get instances " << chInst << " " << chCount << endl;
-
+    if(swCount==100)
+    {
+    	cout << "Calculating PathLoss currently not supported for 100 switch payload try with 50 switches\n";
+    	return 0;
+    }
 
     if(chInst<30 && chCount<40)
     {

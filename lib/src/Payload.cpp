@@ -1361,9 +1361,10 @@ vector<double> Payload::run(vector<int> position_vector,
 double Payload::calcPathLoss(vector<std::string> *pathStrVec){
     double pathLoss;
     LossCalculator lc= LossCalculator();
-    std::cout << "pathloss: "<< pathLoss << std::endl;
     pathLoss=lc.calculatePathLoss(pathStrVec);
+    #ifdef DEBUG_LOSS_CALC
     std::cout << "pathloss: "<< pathLoss << std::endl;
+    #endif
 return pathLoss;
 }
 

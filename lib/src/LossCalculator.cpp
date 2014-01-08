@@ -191,7 +191,9 @@ double LossCalculator::calculatePathLoss(std::vector<std::string> *pathStrVec){
 	  std::cout << "ERROR" << std::endl;
       }
       tmp=atof(values[linkID-1][channels[channel]].c_str());
+      #ifdef DEBUG_LOSS_CALC
       std::cout << "link: " << link << " loss: " << tmp << std::endl;
+      #endif
       pathLoss+=tmp;
       prevItem = currentItem;
     }

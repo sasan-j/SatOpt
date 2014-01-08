@@ -1,4 +1,5 @@
-chCount=8
+#chCount=13
+chCount=$1
 
 baseDir=result
 
@@ -7,8 +8,20 @@ mkdir "$baseDir"/executions
 mkdir "$baseDir"/finals/ch$chCount/
 mkdir "$baseDir"/executions/ch$chCount/
 
-mv "$baseDir"/final_res* "$baseDir"/finals/ch$chCount/
-mv "$baseDir"/run_res* "$baseDir"/executions/ch$chCount/
+#mv "$baseDir"/final_res_"$chCount"_* "$baseDir"/finals/ch$chCount/
+#mv "$baseDir"/run_res_"$chCount"_* "$baseDir"/executions/ch$chCount/
+
+mv "$baseDir"/final_res_"$chCount"_0* "$baseDir"/finals/ch$chCount/
+mv "$baseDir"/run_res_"$chCount"_0* "$baseDir"/executions/ch$chCount/
+
+mv "$baseDir"/final_res_"$chCount"_1* "$baseDir"/finals/ch$chCount/
+mv "$baseDir"/run_res_"$chCount"_1* "$baseDir"/executions/ch$chCount/
+
+mv "$baseDir"/final_res_"$chCount"_2* "$baseDir"/finals/ch$chCount/
+mv "$baseDir"/run_res_"$chCount"_2* "$baseDir"/executions/ch$chCount/
+
+mv "$baseDir"/final_res_"$chCount"_3* "$baseDir"/finals/ch$chCount/
+mv "$baseDir"/run_res_"$chCount"_3* "$baseDir"/executions/ch$chCount/
 
 ALGO=NSGA2
 algoID=0

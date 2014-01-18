@@ -70,14 +70,14 @@ private:
 
 		//creates results directory
 		mkdir(resultDir.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH); //with read/write/search permissions for owner and group, and with read/search permissions for others.
-		unsigned int SEED=1;
+		//unsigned int SEED=0;
 		for (unsigned int i = 0; i < numRuns; i++)
 		{
 			char temp[256];
 			sprintf(temp,"run_res_%d_%d_%d_%d_%d.txt",chCount,algo,swInst,chInst,i);
 			string runFileName=temp;
-			results.push_back(runAlgo(algo, runFileName, SEED)); //i acts as seed
-			SEED++;
+			results.push_back(runAlgo(algo, runFileName, i)); //i acts as seed
+			//SEED++;
 		}
 		return results;
 				}
@@ -86,8 +86,12 @@ private:
 	{
 		// generate initial population
 		eoPop < SatOpt > pop;
-		rng.reseed(time(NULL));
-		RunResult result;
+		//rng.reseed(time(NULL));
+        //with this style of seed we know that each different runs use different population
+        //and different algorithms will deal with same set of initial populations
+	    rng.reseed(SEED);
+      
+        RunResult result;
 		result.resultFileName = runFileName;
 		remove((resultDir+runFileName).c_str());
 
@@ -116,6 +120,8 @@ private:
 
 		eoSGATransform<SatOpt>settings(xover, 0.8, mutation, 1.0);
 
+
+        //Generates the population
 		// fill it!
 		for (unsigned int igeno = 0; igeno < currentPrInst->getPopSize(); igeno++)
 		{
@@ -141,22 +147,26 @@ private:
 		/////////////////////////////////////
 
 		eoSecondsElapsedContinue<SatOpt> continuatorMaxTime(currentPrInst->getMaxTime());
-		eoGenContinue<SatOpt> continuatorMaxGen(currentPrInst->getMaxGen());
+		
+        //disabled because it wasn't in use
+        //eoGenContinue<SatOpt> continuatorMaxGen(currentPrInst->getMaxGen());
 		eoCheckPoint<SatOpt> checkpoint(continuatorMaxTime);
 
-		SatOptStats satStats(resultDir);
+        SatOptStats satStats(resultDir);
 		satStats.setCurrentResult(&result);
 		///////////////////////////////////////////////////////////////////////
-		satStats.algo=algo;
-		checkpoint.add(satStats);
-
-		eoSteadyFitContinue<SatOpt> continuatorMaxSteady(currentPrInst->getMinGen(),currentPrInst->getIdleGen());
-
-		eoCombinedContinue<SatOpt> continuator(continuatorMaxSteady);
-
+        satStats.algo=algo;
+        checkpoint.add(satStats);
+        
+        //disabled because it wasn't in use
+		//eoSteadyFitContinue<SatOpt> continuatorMaxSteady(currentPrInst->getMinGen(),currentPrInst->getIdleGen());
+        //disabled because it wasn't in use
+		//eoCombinedContinue<SatOpt> continuator(continuatorMaxSteady);
 		//continuator.add(continuatorMaxSteady);
-		continuator.add(checkpoint);
-		continuator.add(continuatorMaxGen);
+        eoCombinedContinue<SatOpt> continuator(checkpoint);
+		//continuator.add(checkpoint);
+	    //disabled because it wasn't in use
+        //continuator.add(continuatorMaxGen);
 
 
 		if (algo == NSGA2)
@@ -208,7 +218,8 @@ private:
 
 		result.setElapsedTime(elapsed_seconds.count());
 
-
+        //was used for closing runFile which is not in use anymore
+        
 		file.open(resultDir+runFileName, ios::app);
 		if (file.is_open())
 		{
@@ -217,6 +228,7 @@ private:
 			<< "elapsed time: " << elapsed_seconds.count() << "s" << endl;
 			file.close();
 		}
+        
 		/////////////////////
 		/////////////////////
 		/*

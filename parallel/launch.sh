@@ -1,7 +1,9 @@
 #! /bin/bash
 . /etc/profile
-module load GCC/4.7.3
+module load GCC
 #gcc --version
 #;./satOptMOEO -W='+chCount+' -A='+algo+' -U='+str(i)+' -V='+chInst+' -T=2'
-cd $HOME/myCodes/SatOpt/parallel/
-./satOptMOEO_LPL -W=$1 -U=$2 -V=$3 -S=$4 -T=600 -R=30
+cd $WORK/myCodes/SatOpt/parallel/
+$HOME/myCodes/SatOpt/satOptMOEO_$1/satOptMOEO_$1 -W=$2 -U=$3 -V=$4 -S=$5 -T=600 -R=30
+#echo "$HOME/myCodes/SatOpt/satOptMOEO_$1/satOptMOEO_$1 -W=$2 -U=$3 -V=$4 -S=$5 -T=1 -R=4"
+#pwd

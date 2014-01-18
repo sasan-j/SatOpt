@@ -45,7 +45,7 @@ if [ -f  /etc/profile ]; then
 fi
 
 # Modules to preload
-MODULE_TO_LOAD=(GCC/4.7.3)
+MODULE_TO_LOAD=(GCC)
 
 # Characteristics of the reservation
 NB_CORES=`cat ${OAR_NODEFILE} | wc -l`
@@ -53,7 +53,7 @@ NB_HOSTS=`cat ${OAR_NODEFILE} | uniq | wc -l`
 
 # The [serial] task to be executed i.E. your favorite
 # Java/C/C++/Ruby/Perl/Python/R/whatever program to be invoked in parallel  
-TASK="sh $HOME/myCodes/SatOpt/parallel/launch.sh"
+TASK="sh $HOME/myCodes/SatOpt/parallel/launch.sh $1"
 
 # Define here a file containing the arguments to pass to the task, one line per 
 # exected run

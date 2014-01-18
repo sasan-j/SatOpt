@@ -38,8 +38,8 @@ public:
     {
 	//genCount++;
 	this->currentResult->incGenCount();
-	if((int)algo!=3)
-	    doit(_pop);
+	//if((int)algo!=3)
+	doit(_pop);
     }
 
     void setCurrentResult(RunResult *_result)
